@@ -33,7 +33,7 @@
     padding: 8px 16px 32px;
   }
   @media (max-width: 600px) {
-    .stores-grid { grid-template-columns: repeat(2,1fr) !important; }
+
     .product-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
@@ -202,7 +202,14 @@ const PRODUCTS = [
   { id:81, chainId:"saizeriya", name:"ラム(仔羊)のランプステーキ",          category:"グリル",        price:"¥1,090", img:SAI+"4281046/l/ae51c310e0550ebd.jpg", startDate:"6/10〜", isNew:true, note:"地域限定", url:"https://www.saizeriya.co.jp/menu/grandmenu.html" },
 ];
 
-const ALL_CATEGORIES = ["すべて", ...Object.keys(CATEGORY_ICONS)];
+const CATEGORY_FILTERS = [
+  { label:"すべて",           cats: null },
+  { label:"バーガー",         cats: ["バーガー"] },
+  { label:"ドリンク・スイーツ", cats: ["ドリンク", "スイーツ"] },
+  { label:"サイドメニュー",   cats: ["サイドメニュー", "チキン", "グリル"] },
+  { label:"定食・丼",         cats: ["定食", "丼", "海鮮丼", "カレー"] },
+  { label:"麺類",             cats: ["うどん", "冷麺"] },
+];
 const chainMap = Object.fromEntries(CHAINS.map(c => [c.id, c]));
 
 function ProductImage({ img, chain, name }) {
@@ -242,7 +249,7 @@ function StoresPage({ chainOrder }) {
           </span>
           <div style=${{height:2, flex:1, background:"linear-gradient(270deg,"+group.color+",transparent)", borderRadius:1}} />
         </div>
-        <div class="stores-grid" style=${{display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:12}}>
+        <div class="stores-grid" style=${{display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:12}}>
           ${groupChains.map(chain => html`
             <a key=${chain.id} href=${chain.url} target="_blank" rel="noopener noreferrer"
               style=${{textDecoration:"none"}}>
@@ -342,7 +349,8 @@ function App() {
     return PRODUCTS
       .filter(p => {
         const chainOk = selectedChains[p.chainId];
-        const catOk   = selectedCategory === "すべて" || p.category === selectedCategory;
+        const catFilter = CATEGORY_FILTERS.find(f => f.label === selectedCategory);
+        const catOk   = selectedCategory === "すべて" || (catFilter?.cats ?? []).includes(p.category);
         return chainOk && catOk;
       })
       .sort((a, b) => displayOrder[a.chainId] - displayOrder[b.chainId]);
@@ -420,15 +428,15 @@ function App() {
                 })}
               </div>
               <div style=${{display:"flex", gap:5, flexWrap:"wrap"}}>
-                ${ALL_CATEGORIES.map(cat => {
-                  const active = selectedCategory === cat;
-                  return html`<button key=${cat} onClick=${() => { setSelectedCategory(cat); setFiltersOpen(false); }} class="cat-btn"
+                ${CATEGORY_FILTERS.map(f => {
+                  const active = selectedCategory === f.label;
+                  return html`<button key=${f.label} onClick=${() => { setSelectedCategory(f.label); setFiltersOpen(false); }} class="cat-btn"
                     style=${{padding:"4px 10px", borderRadius:14, border:"none",
                       background: active ? "#1a1a2e" : "#EDF2F7",
                       color: active ? "white" : "#4A5568",
                       fontSize:13, cursor:"pointer", fontWeight: active ? "bold" : "normal",
                       transition:"all .15s"}}>
-                    ${cat}
+                    ${f.label}
                   </button>`;
                 })}
               </div>
