@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>期間限定メニュー</title>
+<meta name="description" content="マクドナルド・スタバ・吉野家など人気チェーンの期間限定メニューをまとめてチェック">
+<meta name="theme-color" content="#DA291C">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="限定メニュー">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Sans', 'Meiryo', 'Yu Gothic', sans-serif; background: #F7F8FA; }
+  input, button { font-family: inherit; }
+  a { text-decoration: none; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #f1f1f1; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12) !important; }
+  .chain-btn:hover { opacity: 0.85; }
+  .cat-btn:hover { opacity: 0.8; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useMemo, useRef } = React;
+
+const CHAINS = [
+  { id:"mcdonalds",  name:"マクドナルド",   color:"#DA291C", bg:"#FFF0F0", grad:"linear-gradient(135deg,#DA291C,#FF6B35)", emoji:"🍔", url:"https://www.mcdonalds.co.jp/campaign/",                              logo:"https://www.mcdonalds.co.jp/assets/images/mcd-logo.svg" },
+  { id:"starbucks",  name:"スターバックス", color:"#00704A", bg:"#F0FFF8", grad:"linear-gradient(135deg,#00704A,#1DB954)", emoji:"☕", url:"https://product.starbucks.co.jp/beverage/",                          logo:"https://d3vgbguy0yofad.cloudfront.net/common/images/header/logo.svg" },
+  { id:"yoshinoya",  name:"吉野家",         color:"#D4600A", bg:"#FFF5ED", grad:"linear-gradient(135deg,#D4600A,#F4A340)", emoji:"🍚", url:"https://www.yoshinoya.com/menu/gentei",                              logo:"https://www.yoshinoya.com/assets/images/logo.svg" },
+  { id:"sukiya",     name:"すき家",         color:"#E06B00", bg:"#FFF8F0", grad:"linear-gradient(135deg,#E06B00,#FF9A3C)", emoji:"🥩", url:"https://www.sukiya.jp/news/",                                        logo:"https://www.sukiya.jp/assets/img/common/h_logo.png" },
+  { id:"matsuya",    name:"松屋",           color:"#1A5AA0", bg:"#F0F5FF", grad:"linear-gradient(135deg,#1A5AA0,#4A90D9)", emoji:"🍱", url:"https://www.matsuyafoods.co.jp/matsuya/menu/limited/index.html",    logo:"https://www.matsuyafoods.co.jp/matsuya/img/common/logo.png" },
+  { id:"kfc",        name:"KFC",            color:"#C8102E", bg:"#FFF0F2", grad:"linear-gradient(135deg,#C8102E,#E84040)", emoji:"🍗", url:"https://www.kfc.co.jp/menu/limited",                                 logo:"https://www.kfc.co.jp/static/media/kfcLogo.492728c6.svg" },
+  { id:"burgerking", name:"バーガーキング", color:"#D62300", bg:"#FFF3F0", grad:"linear-gradient(135deg,#D62300,#FF6900)", emoji:"👑", url:"https://www.burgerking.co.jp/event",                                 logo:"https://www.burgerking.co.jp/img/bg_logo.svg" },
+  { id:"nakau",      name:"なか卯",         color:"#C82C2C", bg:"#FFF5F5", grad:"linear-gradient(135deg,#C82C2C,#E85D5D)", emoji:"🥚", url:"https://www.nakau.co.jp/jp/menu/",                                   logo:"https://www.nakau.co.jp/jp/sp/assets/img/top/logo.jpg" },
+  { id:"mosburger",  name:"モスバーガー",   color:"#006633", bg:"#F0FFF4", grad:"linear-gradient(135deg,#006633,#29A329)", emoji:"🍀", url:"https://www.mos.jp/menu/category/?c_id=26",                                              logo:"https://www.mos.jp/common/svg/logo.svg" },
+  { id:"zetteria",   name:"ゼッテリア",     color:"#E05A00", bg:"#FFF5EE", grad:"linear-gradient(135deg,#E05A00,#FF8C42)", emoji:"🍔", url:"https://www.zetteria.jp/menu/",                                                            logo:"https://www.zetteria.jp/images/ogp.png" },
+  { id:"tullys",     name:"タリーズ",       color:"#006241", bg:"#F0FFF8", grad:"linear-gradient(135deg,#006241,#009B60)", emoji:"☕", url:"https://www.tullys.co.jp/menu/seasonal_lineup/",                                          logo:"https://www.tullys.co.jp/assets/images/common/header/logo.svg" },
+  { id:"saintmarc",  name:"サンマルクカフェ",color:"#7B3F1E", bg:"#FFF8F2", grad:"linear-gradient(135deg,#7B3F1E,#C47A3A)", emoji:"🥐", url:"https://www.saint-marc-hd.com/saintmarccafe/menu/saintmarccafe/category/seasonal_2/",  logo:"https://www.saint-marc-hd.com/assets/images/saintmarccafe/logo-brown.svg" },
+  { id:"marugame",   name:"丸亀製麺",       color:"#C0392B", bg:"#FFF5F5", grad:"linear-gradient(135deg,#C0392B,#E74C3C)", emoji:"🍜", url:"https://www.marugame-seimen.com/menu/udon/",                           logo:"https://jp.marugame.com/icon.svg" },
+  { id:"gusto",      name:"ガスト",         color:"#E65100", bg:"#FFF3E0", grad:"linear-gradient(135deg,#E65100,#FF8F00)", emoji:"🍽️", url:"https://www.skylark.co.jp/gusto/menu/fair2/index.html",               logo:"https://www.skylark.co.jp/site_resource/gusto/images/logo.svg" },
+  { id:"saizeriya",  name:"サイゼリヤ",     color:"#B71C1C", bg:"#FFF5F5", grad:"linear-gradient(135deg,#B71C1C,#E53935)", emoji:"🇮🇹", url:"https://www.saizeriya.co.jp/menu/grandmenu.html",                      logo:"https://www.saizeriya.co.jp/wp-content/themes/saizeriya/assets/images/logo.webp" },
+];
+
+const CHAIN_GROUPS = [
+  { label:"🍔 バーガー",   ids:["mcdonalds","kfc","burgerking","mosburger","zetteria"],       color:"#C8102E", bg:"#FFF0F2" },
+  { label:"🍚 牛丼・丼",   ids:["yoshinoya","sukiya","matsuya","nakau","marugame"],            color:"#B45309", bg:"#FFFBEB" },
+  { label:"🍽️ ファミレス", ids:["gusto","saizeriya"],                                         color:"#E65100", bg:"#FFF3E0" },
+  { label:"☕ カフェ",     ids:["starbucks","tullys","saintmarc"],                             color:"#00704A", bg:"#F0FFF8" },
+];
+
+const CATEGORY_ICONS = {
+  "バーガー":"🍔", "ドリンク":"🥤", "サイドメニュー":"🍟",
+  "定食":"🍱", "丼":"🍜", "カレー":"🍛", "チキン":"🍗", "スイーツ":"🍰",
+  "うどん":"🍲", "海鮮丼":"🐟", "冷麺":"🍜", "グリル":"🥩",
+};
+
+const MCD = "https://www.mcdonalds.co.jp/product_images/";
+const YOS = "https://www.yoshinoya.com/wp-content/uploads/";
+const MAT = "https://www.matsuyafoods.co.jp/menu/upload_images/";
+const MAR = "https://images.microcms-assets.io/assets/58eb40d284924aeb96de2de93fa08d93/";
+const GUS = "https://prcdn.freetls.fastly.net/release_image/17486/647/";
+const SAI = "https://ascii.jp/img/2025/06/20/";
+
+const PRODUCTS = [
+  // ── マクドナルド ──────────────────────────────────────────
+  { id:1,  chainId:"mcdonalds", name:"北海道じゃがチーズてりやき",               category:"バーガー",      price:"¥490〜",     img:MCD+"3585/1158.m.png", desc:"てりやきマックバーガーに北海道じゃがチーズとホワイトチェダーチーズを合わせた一品。",         startDate:"5/20〜", isNew:false, url:"https://www.mcdonalds.co.jp/campaign/gotochi/" },
+  { id:2,  chainId:"mcdonalds", name:"名古屋名物 手羽先風黒胡椒ジューシーチキン", category:"バーガー",      price:"¥490〜",     img:MCD+"3589/1160.m.png", desc:"黒胡椒を効かせたジューシーなモモ肉と甘辛いソースで名古屋名物「手羽先」を再現。",         startDate:"5/20〜", isNew:false, url:"https://www.mcdonalds.co.jp/campaign/gotochi/" },
+  { id:3,  chainId:"mcdonalds", name:"博多明太バターてりやき",                   category:"バーガー",      price:"¥490〜",     img:MCD+"3587/1159.m.png", desc:"クセになる博多明太バターマヨソースとコクのあるチェダーチーズを合わせた一品。",              startDate:"5/20〜", isNew:false, url:"https://www.mcdonalds.co.jp/campaign/gotochi/" },
+  { id:4,  chainId:"mcdonalds", name:"スパイシーチキンマックナゲット",            category:"サイドメニュー",price:"¥290〜",      img:MCD+"3622/1686.png",   desc:"２種の新ソースも楽しめるスパイシーなチキンマックナゲット。",                               startDate:"5/27〜", isNew:false, url:"https://www.mcdonalds.co.jp/campaign/spicynuggets/" },
+  { id:5,  chainId:"mcdonalds", name:"もものスムージー",                         category:"ドリンク",      price:"¥490〜",      img:MCD+"3635/3849.png",   desc:"毎年大人気の桃の果肉たっぷりスムージー。",                                                startDate:"5/27〜", isNew:false, url:"https://www.mcdonalds.co.jp/campaign/peach-series/" },
+  { id:6,  chainId:"mcdonalds", name:"マスカットスムージー",                     category:"ドリンク",      price:"¥470〜",      img:MCD+"3634/3845.png",   desc:"新登場！フレッシュなマスカットを使った爽やかなスムージー。",                               startDate:"5/27〜", isNew:true,  url:"https://www.mcdonalds.co.jp/campaign/peach-series/" },
+  { id:7,  chainId:"mcdonalds", name:"シャカシャカポテト® 金沢名物 黒カレー味", category:"サイドメニュー",price:"¥50〜(追加)", img:MCD+"3594/2104.m.png", desc:"食欲をそそるスパイスの香りが広がる、金沢名物「黒カレー」を再現したクセになる味。",       startDate:"5/20〜", isNew:false, url:"https://www.mcdonalds.co.jp/campaign/gotochi/" },
+  { id:8,  chainId:"mcdonalds", name:"グランドフライ",                           category:"サイドメニュー",price:"¥490〜",     img:MCD+"3595/2056.m.png", desc:"マックフライポテト®Mサイズの約1.7倍のグランドサイズ。",                                     startDate:"〜",     isNew:false, url:"https://www.mcdonalds.co.jp/campaign/gotochi/" },
+
+  // ── スターバックス ────────────────────────────────────────
+  { id:9,  chainId:"starbucks", name:"バナナ アフォガート フラペチーノ®",        category:"ドリンク",      price:"¥700",        img:"https://asset.menu.starbucks.co.jp/public/sku_images/4524785641105/4524785641105_11_s.jpg", desc:"バナナとエスプレッソのアフォガートが融合した濃厚なフラペチーノ。",                           startDate:"〜", isNew:false, url:"https://product.starbucks.co.jp/beverage/" },
+  { id:10, chainId:"starbucks", name:"ハニー バナナ フラペチーノ®",              category:"ドリンク",      price:"¥700",        img:"https://asset.menu.starbucks.co.jp/public/sku_images/4524785618305/4524785618305_11_s.jpg", desc:"はちみつとバナナの甘さが溶け合う夏の定番フラペチーノ。",                                     startDate:"〜", isNew:false, url:"https://product.starbucks.co.jp/beverage/" },
+  { id:11, chainId:"starbucks", name:"ビター クリーム コーヒー",                 category:"ドリンク",      price:"¥550〜",      img:"https://asset.menu.starbucks.co.jp/public/sku_images/4524785607736/4524785607736_11_s.jpg", desc:"ビターなコーヒーとクリーミーなトップが絶妙に組み合わさった一杯。",                           startDate:"〜", isNew:false, url:"https://product.starbucks.co.jp/beverage/" },
+  { id:12, chainId:"starbucks", name:"チラックス ソーダ ゆずシトラス",           category:"ドリンク",      price:"¥590〜",      img:"https://asset.menu.starbucks.co.jp/public/sku_images/4524785584655/4524785584655_11_s.jpg", desc:"ゆずとシトラスが爽やかな、リラックスできるソーダ。",                                         startDate:"〜", isNew:false, url:"https://product.starbucks.co.jp/beverage/" },
+  { id:13, chainId:"starbucks", name:"煎茶抹茶 ティー フラペチーノ® わらび餅入り",category:"ドリンク",     price:"¥820",        img:"https://asset.menu.starbucks.co.jp/public/sku_images/4524785633643/4524785633643_11_s.jpg", desc:"煎茶と抹茶を使ったフラペチーノにわらび餅が入った限定店舗商品。",                             startDate:"〜", isNew:false, url:"https://product.starbucks.co.jp/beverage/", note:"限定店舗" },
+  { id:14, chainId:"starbucks", name:"煎茶抹茶 グリーン ティー スパークリング",   category:"ドリンク",     price:"¥730",        img:"https://asset.menu.starbucks.co.jp/public/sku_images/4524785633650/4524785633650_11_s.jpg", desc:"爽やかな炭酸と煎茶抹茶の組み合わせが楽しい限定店舗商品。",                                   startDate:"〜", isNew:false, url:"https://product.starbucks.co.jp/beverage/", note:"限定店舗" },
+
+  // ── 吉野家 ───────────────────────────────────────────────
+  { id:15, chainId:"yoshinoya", name:"麦とろ牛皿御膳",        category:"定食", price:"¥853",   img:YOS+"2026/05/25172748/5124106362e8543f6634eb1ccc568e59-400x400.jpg", desc:"麦とろご飯と牛皿を組み合わせた夏にぴったりの御膳。",               startDate:"〜", isNew:true,  url:"https://www.yoshinoya.com/menu/set/mugitoro_gyusara_tei/" },
+  { id:16, chainId:"yoshinoya", name:"とろろおくら牛丼",      category:"丼",   price:"¥792",   img:YOS+"2026/05/25172749/6e538ab8826aae661379b0dec165b0b5-400x400.jpg", desc:"とろろとおくらをのせたさっぱりとした夏の牛丼。",                   startDate:"〜", isNew:true,  url:"https://www.yoshinoya.com/menu/gyudon/tororookura-gyu-don/" },
+  { id:17, chainId:"yoshinoya", name:"絶品牛重",              category:"丼",   price:"¥1,207", img:YOS+"2026/04/21185514/12e8455283cf2bc0ca66e9d6ae055758-400x400.jpg", desc:"特製タレで仕上げた食べ応え抜群の豪華な牛重。",                     startDate:"〜", isNew:false, url:"https://www.yoshinoya.com/menu/gyudon/zeppin-gyujyu/" },
+  { id:18, chainId:"yoshinoya", name:"牛ほっけ定食",          category:"定食", price:"¥899",   img:YOS+"2026/04/21191928/c330f6ac07ff8b68e6bcbb3452203325-400x400.jpg", desc:"牛皿とほっけを組み合わせた、ボリューム満点の定食。",               startDate:"〜", isNew:false, url:"https://www.yoshinoya.com/menu/set/gyuhokke-tei/" },
+  { id:19, chainId:"yoshinoya", name:"焦がしねぎ焼き鳥丼",    category:"丼",   price:"¥611",   img:YOS+"2023/04/04172057/f90747979546f7f93ea398da7f461d77-400x400.jpg",  desc:"焦がしねぎの香ばしさが広がる、香り豊かな焼き鳥丼。",               startDate:"〜", isNew:false, url:"https://www.yoshinoya.com/menu/yoshinoyanodon/kogashinegi_yakitori_don/" },
+  { id:20, chainId:"yoshinoya", name:"冷汁",                  category:"サイドメニュー", price:"¥250", img:YOS+"2026/05/25172745/390d87b26637b99201d3faa1ea30a6de-400x400.jpg", desc:"夏にぴったりのさっぱりとした冷汁。牛丼との相性も抜群。", startDate:"〜", isNew:true, url:"https://www.yoshinoya.com/menu/sidemenu/hiyajiru/" },
+
+  // ── すき家 ───────────────────────────────────────────────
+  { id:21, chainId:"sukiya", name:"おんたまビビンバ牛丼",  category:"丼",      price:"〜", img:null, desc:"温玉とビビンバの要素を組み合わせた、ごはんが進む牛丼。",              startDate:"6/9〜",  isNew:true,  url:"https://www.sukiya.jp/news/" },
+  { id:22, chainId:"sukiya", name:"レモネードスカッシュ",  category:"ドリンク", price:"〜", img:"https://www.sukiya.jp/menu/img/in/photo_drink_811700.jpg", desc:"爽やかなレモネードの炭酸ドリンク。暑い季節にぴったり。",              startDate:"6/4〜",  isNew:true,  url:"https://www.sukiya.jp/news/" },
+  { id:23, chainId:"sukiya", name:"とん汁みそらーめん",    category:"丼",      price:"¥360〜", img:"https://www.sukiya.jp/menu/img/in/photo_side_7010400.jpg", desc:"すき家のとん汁をアレンジした、具だくさんのみそらーめん。",             startDate:"6/4〜",  isNew:true,  url:"https://www.sukiya.jp/news/" },
+  { id:24, chainId:"sukiya", name:"めかぶオクラ牛丼",      category:"丼",      price:"〜", img:"https://www.sukiya.jp/menu/img/in/photo_gyudon_114600.jpg", desc:"めかぶとオクラのネバネバが牛丼とよく合う、夏の定番メニュー。",         startDate:"5/19〜", isNew:false, url:"https://www.sukiya.jp/news/" },
+
+  // ── 松屋 ─────────────────────────────────────────────────
+  { id:65, chainId:"matsuya", name:"溢れる3種の濃厚チーズINうまトマハンバーグ定食", category:"定食", price:"¥1,180", img:MAT+"tei_umatoma_3ch_in_hb_hp_s_260602.jpg", desc:"3種の濃厚チーズがとろけるうまトマソースのハンバーグ定食。チーズが溢れ出す迫力の一品。", startDate:"6/3〜", isNew:true, url:"https://www.matsuyafoods.co.jp/matsuya/menu/limited/index.html" },
+  { id:66, chainId:"matsuya", name:"溢れる3種の濃厚チーズINデミハンバーグ定食",   category:"定食", price:"¥1,090", img:MAT+"tei_demi_3ch_in_hb_hp_s_260602.jpg",      desc:"デミグラスソースと3種の濃厚チーズが絡む、食べ応え抜群のハンバーグ定食。",               startDate:"6/3〜", isNew:true, url:"https://www.matsuyafoods.co.jp/matsuya/menu/limited/index.html" },
+  { id:67, chainId:"matsuya", name:"チミチュリソース厚切りポークグリル定食",       category:"定食", price:"¥1,280", img:MAT+"tei_chimichurri_hp_s_260519.jpg",          desc:"アルゼンチン発祥のチミチュリソースを使った厚切りポークグリル定食。ハーブ香る本格派。",     startDate:"5/19〜", isNew:false, url:"https://www.matsuyafoods.co.jp/matsuya/menu/limited/index.html" },
+
+  // ── KFC ──────────────────────────────────────────────────
+  { id:30, chainId:"kfc", name:"原神コラボパックA",                 category:"チキン",      price:"¥1,410", img:"https://images.ctfassets.net/jax7ylg56usf/69KvxABpWwRoufY1lx9Czo/1c339de6262fc08359dde7158b11db0a/%C3%A5__%C3%A7__%C3%A3__%C3%A3__%C3%A3__%C3%A3__%C3%A3__%C3%A3__A_Renegade_%C3%A3__%C3%A3__%C3%A3__%C3%A3__%C3%A7__%C3%A5___1600x1600_032106007_260527_1.png", desc:"人気ゲーム『原神』とのコラボパック。限定特典付き。",              startDate:"〜", isNew:false, url:"https://www.kfc.co.jp/menu/limited" },
+  { id:31, chainId:"kfc", name:"オニオンリングフィレバーガー",       category:"バーガー",    price:"¥580",   img:"https://images.ctfassets.net/jax7ylg56usf/16LzORg264nS9vdsg7628z/da4a3a0c9d7dce6c91b13a57c15e22fc/031999.png", desc:"サクサクのオニオンリングをのせたフィレバーガー。",                startDate:"〜", isNew:false, url:"https://www.kfc.co.jp/menu/limited" },
+  { id:32, chainId:"kfc", name:"スパイシーアボカドフィレバーガー",   category:"バーガー",    price:"¥580",   img:"https://images.ctfassets.net/jax7ylg56usf/7rAw6jM7ueipIl2MnpOKG4/7cacf97a0fd8e0e540f2715a682fa2eb/032003.png", desc:"アボカドとスパイシーソースを組み合わせた新感覚フィレバーガー。",  startDate:"〜", isNew:false, url:"https://www.kfc.co.jp/menu/limited" },
+  { id:33, chainId:"kfc", name:"ダブルダウンフィレバーガー",         category:"バーガー",    price:"¥790",   img:"https://images.ctfassets.net/jax7ylg56usf/6QmZXDPrHlIwS1ZW3XNpBD/6a14e623cc9179fe95dbb61078d322c2/032006.png", desc:"ビッグサイズのダブルフィレバーガー。食べ応え抜群。",              startDate:"〜", isNew:false, url:"https://www.kfc.co.jp/menu/limited" },
+  { id:34, chainId:"kfc", name:"カーネルクランチポテトBOX",         category:"サイドメニュー",price:"¥990",  img:"https://images.ctfassets.net/jax7ylg56usf/5DQALWjLcdjoomfarFYWu7/f3039dab66a0f23cd5a0c0424365360d/032265.png", desc:"カリカリ食感のクランチポテトが大容量BOXで登場。",                startDate:"〜", isNew:false, url:"https://www.kfc.co.jp/menu/limited" },
+  { id:35, chainId:"kfc", name:"ちゅる～りぃ（グリーンライム）",     category:"ドリンク",    price:"¥440",   img:"https://images.ctfassets.net/jax7ylg56usf/5RHIx2R89GqmjZSbvHdJTY/7ff77344f9830697e10da1d527ce81ec/032259.png", desc:"グリーンライム風味のひんやりスムージードリンク。",                startDate:"〜", isNew:false, url:"https://www.kfc.co.jp/menu/limited" },
+  { id:36, chainId:"kfc", name:"辛旨ジンガー",                       category:"チキン",      price:"¥290",   img:"https://images.ctfassets.net/jax7ylg56usf/6fVX3TfVrGQ76vOebUPgUp/c66ef1039762c788b8eaec73edea9350/032010.png", desc:"ジンジャーとスパイスが効いた辛旨チキン。",                       startDate:"〜", isNew:false, url:"https://www.kfc.co.jp/menu/limited" },
+
+  // ── バーガーキング ────────────────────────────────────────
+  { id:37, chainId:"burgerking", name:"スモークハウス ザ・ワンパウンダー",       category:"バーガー",      price:"〜", img:"https://www.burgerking.co.jp/images/menu/web/main/2026/05/19/adc0a8f1-57d4-4ff2-b57d-a7f76d446b08.png", desc:"直火焼きビーフ4枚＋特製スモークベーコンソース使用の超大型バーガー。", startDate:"〜", isNew:true,  url:"https://www.burgerking.co.jp/event" },
+  { id:38, chainId:"burgerking", name:"スモークハウス（ビッグマウス）",          category:"バーガー",      price:"〜", img:"https://www.burgerking.co.jp/images/menu/web/main/2026/04/06/ddcf53e2-d131-4f6c-a9a2-066eab1a33e6.png", desc:"香ばしい刻みベーコン＋特製スモークベーコンソースのビッグマウス新作。",  startDate:"〜", isNew:true,  url:"https://www.burgerking.co.jp/event" },
+  { id:39, chainId:"burgerking", name:"スモークハウス スモーキーフライドチキン", category:"チキン",        price:"〜", img:"https://www.burgerking.co.jp/images/menu/web/main/2026/04/14/a34ab155-1719-4d75-8d55-125fabf662cb.png", desc:"特製スモークベーコンソースを使ったさらにスモーキーなフライドチキン。",  startDate:"〜", isNew:true,  url:"https://www.burgerking.co.jp/event" },
+  { id:40, chainId:"burgerking", name:"ハバネロチキンナゲット",                  category:"サイドメニュー",price:"〜", img:"https://www.burgerking.co.jp/images/menu/web/main/2026/04/14/b468c28d-6730-4d98-8758-49f6160598d3.png", desc:"ハバネロやレッドチリなど7種のスパイスを使ったキレのある辛さのナゲット。",startDate:"〜", isNew:true,  url:"https://www.burgerking.co.jp/event" },
+  { id:41, chainId:"burgerking", name:"ビッグバーレル（3種）",                   category:"サイドメニュー",price:"〜", img:"https://www.burgerking.co.jp/images/menu/web/main/2026/05/27/a3c8646f-5775-4b21-af7e-27a0d8ade1a1.png", desc:"チリチーズフライ・チキンナゲット・オニオンリングから選べる大容量パック。", startDate:"〜", isNew:true,  url:"https://www.burgerking.co.jp/event" },
+  { id:42, chainId:"burgerking", name:"パイナップル＆ワッフルサンデー",          category:"スイーツ",      price:"〜", img:"https://www.burgerking.co.jp/images/menu/web/main/2026/04/19/dbd821a4-9678-4657-ae15-cb212063e6c1.png", desc:"パイナップルソースとザクザクなコナッツワッフルを混ぜたキングフュージョンサンデー。",startDate:"〜", isNew:true, url:"https://www.burgerking.co.jp/event" },
+  { id:43, chainId:"burgerking", name:"ビッグドリンク",                           category:"ドリンク",      price:"+¥100", img:null, desc:"お好きなセットに+100円でMサイズ2杯分のビッグドリンクに倍増！", startDate:"〜", isNew:false, url:"https://www.burgerking.co.jp/event" },
+
+  // ── なか卯 ───────────────────────────────────────────────────
+  { id:44, chainId:"nakau", name:"辛旨赤の親子丼",         category:"丼",     price:"¥620",   img:"https://prcdn.freetls.fastly.net/release_image/97263/1018/97263-1018-470755930863585caa0aaf2d0634a5b5-1061x854.jpg", desc:"特製旨辛ダレとふわとろ親子丼の組み合わせ。コチュジャンとラー油が織りなす重層的な辛さ。",           startDate:"6/10〜", isNew:true,  url:"https://www.nakau.co.jp/jp/news/" },
+  { id:45, chainId:"nakau", name:"紀州南高梅おろしうどん",  category:"うどん", price:"¥620",   img:"https://www.nakau.co.jp/jp/lp/ume_oroshi_udon_202605/img/menu01.png", desc:"紀州南高梅を丸ごと1粒のせた爽やかなおろしうどん。梅の豊かな風味が楽しめる。",                            startDate:"5/20〜", isNew:false, url:"https://www.nakau.co.jp/jp/lp/ume_oroshi_udon_202605/" },
+  { id:46, chainId:"nakau", name:"漬け旨サーモン丼",        category:"海鮮丼", price:"〜",      img:"https://www.nakau.co.jp/jp/lp/salmon_202605/img/menu_dukesalmon.png", desc:"脂のりが良いアトランティックサーモンを特製つけだれで仕立てた海鮮丼。",                                    startDate:"5/7〜",  isNew:false, url:"https://www.nakau.co.jp/jp/lp/salmon_202605/" },
+  { id:47, chainId:"nakau", name:"うな重",                  category:"丼",     price:"¥980〜", img:"https://prcdn.freetls.fastly.net/release_image/97263/1015/97263-1015-c5149bac77dbdb1086f9f7afc5f4c4f3-1460x2064.jpg", desc:"三度付け焼きでふっくら香ばしく仕上げた、税込980円から楽しめる季節のうな重。",                       startDate:"4/24〜", isNew:false, url:"https://www.nakau.co.jp/jp/news/" },
+
+  // ── モスバーガー ─────────────────────────────────────────────
+  { id:48, chainId:"mosburger", name:"アボカド海老カツバーガー ～国産バジルマヨ～",           category:"バーガー", price:"¥590",   img:"https://www.mos.jp/img/menu/010572/thumbnail_1778219773778.jpg",    desc:"プリプリ海老カツにアボカドと国産バジルマヨを組み合わせた期間限定バーガー。",                startDate:"〜", isNew:false, url:"https://www.mos.jp/menu/category/?c_id=26" },
+  { id:49, chainId:"mosburger", name:"モスの匠味 海老エビフライバーガー ～くし切りレモン添え～", category:"バーガー", price:"¥780",   img:"https://www.mos.jp/img/menu/010573/thumbnail_1778220303625.jpg",    desc:"モスの匠味シリーズ。海老フライにくし切りレモンを添えた数量限定バーガー。",                startDate:"〜", isNew:false, url:"https://www.mos.jp/menu/category/?c_id=26" },
+  { id:50, chainId:"mosburger", name:"白桃ソーダ with 国産白桃&レモンソース",               category:"ドリンク", price:"¥290〜", img:"https://www.mos.jp/img/menu/P00067/thumbnail_1778225943895.jpg",     desc:"国産白桃と爽やかなレモンソースが合わさった夏季限定ソーダ。",                              startDate:"〜", isNew:false, url:"https://www.mos.jp/menu/category/?c_id=26" },
+  { id:51, chainId:"mosburger", name:"アイスドルチェ 苺クリームのアイスわらび餅",            category:"スイーツ", price:"¥260",   img:"https://www.mos.jp/img/menu/685728/thumbnail_1778232128810.jpg",    desc:"苺クリームとあまおうソース入りのひんやりアイスわらび餅デザート。",                          startDate:"〜", isNew:false, url:"https://www.mos.jp/menu/category/?c_id=26" },
+  { id:52, chainId:"mosburger", name:"ふんわりスフレパンケーキ ＜国産白桃ソース＞",          category:"スイーツ", price:"¥520",   img:"https://www.mos.jp/img/menu/685777/thumbnail_1778231499798.jpg",    desc:"ふわふわ食感のスフレパンケーキに国産白桃ソースをのせたイートイン・時間限定商品。",         startDate:"〜", isNew:true,  url:"https://www.mos.jp/menu/category/?c_id=26" },
+
+  // ── ゼッテリア（旧ロッテリア）─────────────────────────────
+  { id:53, chainId:"zetteria", name:"アジアンガーリックシュリンプビーフバーガー", category:"バーガー", price:"¥590", img:"https://www.zetteria.jp/images/menu/p_burger020073.png", desc:"アジア風ガーリックソースとぷりっとしたシュリンプが入ったビーフパティのフェアバーガー。", startDate:"〜", isNew:false, url:"https://www.zetteria.jp/menu/" },
+  { id:54, chainId:"zetteria", name:"アジアンガーリックシュリンプえびバーガー", category:"バーガー", price:"¥590", img:"https://www.zetteria.jp/images/menu/p_burger020074.png", desc:"えびパティにアジアンガーリックシュリンプをトッピングしたフェア限定バーガー。",           startDate:"〜", isNew:false, url:"https://www.zetteria.jp/menu/" },
+  { id:55, chainId:"zetteria", name:"スウィートチリチキンバーガー",             category:"バーガー", price:"¥520", img:"https://www.zetteria.jp/images/menu/p_burger020075.png", desc:"甘辛いスウィートチリソースとチキンの組み合わせが絶妙な期間限定バーガー。",               startDate:"〜", isNew:false, url:"https://www.zetteria.jp/menu/" },
+  { id:56, chainId:"zetteria", name:"杏仁マンゴーパフェシェーキ",               category:"ドリンク", price:"¥420", img:"https://www.zetteria.jp/images/menu/p_sweets80.png",     desc:"濃厚な杏仁豆腐風味とトロピカルなマンゴーが合わさったフェア限定シェーキ。",               startDate:"〜", isNew:false, url:"https://www.zetteria.jp/menu/" },
+
+  // ── タリーズコーヒー ─────────────────────────────────────
+  { id:57, chainId:"tullys", name:"クッキー＆クリームシェイク",               category:"ドリンク", price:"〜",    img:"https://www.tullys.co.jp/menu/uploads/cookiecream.png",                                                                                  desc:"クリーミーなシェイクにザクザク食感のココアクッキーを組み合わせたアイスクリーム風シェイク。",   startDate:"5/13〜", isNew:false, url:"https://www.tullys.co.jp/menu/seasonal_lineup/" },
+  { id:58, chainId:"tullys", name:"チョコミントシェイク",                     category:"ドリンク", price:"〜",    img:"https://www.tullys.co.jp/menu/uploads/chocolatemint.png",                                                                                desc:"爽快なミントとチョコレートのハーモニーを楽しむ夏の定番シェイク。",                             startDate:"5/13〜", isNew:false, url:"https://www.tullys.co.jp/menu/seasonal_lineup/" },
+  { id:59, chainId:"tullys", name:"国産白桃のとろっとピーチシェイク",          category:"ドリンク", price:"¥730", img:"https://www.tullys.co.jp/company/pressrelease/uploads/5c200625dbaf893b60c7c98285dcbc3bb5a1ed4e.jpg", desc:"ミルクプリン入りシェイクに国産白桃ソースをトッピング。〆パフェ気分で楽しむ夏のご褒美ドリンク。", startDate:"6/10〜", isNew:true,  url:"https://www.tullys.co.jp/menu/seasonal_lineup/" },
+  { id:60, chainId:"tullys", name:"国産メロンの食べごろメロンシェイク",        category:"ドリンク", price:"¥750", img:"https://www.tullys.co.jp/company/pressrelease/uploads/242747eb77b814981b195ddf5457544071f88a1c.jpg", desc:"国産メロン使用のジューシーなシェイクにメロンソースをトッピング。果実感あふれる一杯。",           startDate:"6/10〜", isNew:true,  url:"https://www.tullys.co.jp/menu/seasonal_lineup/" },
+
+  // ── サンマルクカフェ ─────────────────────────────────────
+  { id:61, chainId:"saintmarc", name:"プレミアム濃密抹茶チョコクロ",  category:"スイーツ", price:"¥390", img:"https://static.saint-marc-hd.com/upload/menu/7023/1260_26042117274125171.jpg", desc:"祇園辻利の抹茶をすべての材料に使用した上質なチョコクロ。抹茶のコクある苦みと甘さが絶妙。",                          startDate:"〜", isNew:false, url:"https://www.saint-marc-hd.com/saintmarccafe/menu/saintmarccafe/category/seasonal_2/" },
+  { id:62, chainId:"saintmarc", name:"濃密ピーチティー",             category:"ドリンク", price:"¥650", img:"https://static.saint-marc-hd.com/upload/menu/7032/1260_26042214335061643.jpg", desc:"アイスティーと白桃のフレッシュな組み合わせ。果肉ソース入りで飲んでも食べても楽しめる。",                           startDate:"〜", isNew:false, url:"https://www.saint-marc-hd.com/saintmarccafe/menu/saintmarccafe/category/seasonal_2/" },
+  { id:63, chainId:"saintmarc", name:"濃密ピーチスムージー",         category:"ドリンク", price:"¥720", img:"https://static.saint-marc-hd.com/upload/menu/7031/1260_26042214325966167.jpg", desc:"白桃をふんだんに使用した濃厚スムージー。果肉ソースをたっぷりトッピングしたピーチたっぷりの一品。",                   startDate:"〜", isNew:false, url:"https://www.saint-marc-hd.com/saintmarccafe/menu/saintmarccafe/category/seasonal_2/" },
+  { id:64, chainId:"saintmarc", name:"濃密抹茶パフェ",              category:"スイーツ", price:"¥850", img:"https://static.saint-marc-hd.com/upload/menu/7030/1260_26042214282051878.jpg", desc:"祇園辻利の抹茶を豊かに使った抹茶パフェ。抹茶ティラミス・ゼリー・クッキーなど様々な食感が楽しめる。",               startDate:"〜", isNew:false, url:"https://www.saint-marc-hd.com/saintmarccafe/menu/saintmarccafe/category/seasonal_2/" },
+
+  // ── 丸亀製麺 ─────────────────────────────────────────────
+  { id:68, chainId:"marugame", name:"鬼おろし肉ぶっかけうどん",     category:"うどん", price:"¥890〜", img:MAR+"0df22fe5b1824e6395de9fe8e84af5f2/udon-onioroshi-nikubukkake.jpg",    desc:"ざく切り大根おろしがたっぷり乗った、がっつり食べ応えのある夏の定番肉ぶっかけ。",           startDate:"〜", isNew:true,  url:"https://www.marugame-seimen.com/menu/udon/" },
+  { id:69, chainId:"marugame", name:"鬼おろし豚しゃぶぶっかけうどん",category:"うどん", price:"¥860〜", img:MAR+"2cd76b18832b4fa69ff59dbf55569bf1/udon-onioroshi-butasyabu.jpg",    desc:"さっぱりした豚しゃぶと鬼おろしの爽やかな組み合わせ。夏にぴったりのぶっかけうどん。",       startDate:"〜", isNew:true,  url:"https://www.marugame-seimen.com/menu/udon/" },
+  { id:70, chainId:"marugame", name:"冷やし明太クリームうどん",     category:"うどん", price:"¥690〜", img:MAR+"9248e6505e0d416bbc3525a37f4cb592/udon-mentaicream.jpg",           desc:"ピリ辛の明太子と濃厚クリームソースが絡む、やみつき冷やしうどん。",                         startDate:"〜", isNew:true,  url:"https://www.marugame-seimen.com/menu/udon/" },
+  { id:71, chainId:"marugame", name:"冷かけうどん",                 category:"うどん", price:"¥440〜", img:MAR+"8e3fa00f52314092bb34a6dbe571127e/Udon-hiyakake2024.jpg",          desc:"冷たい出汁でシンプルに味わう夏の定番。打ち立てうどんの食感が際立つ一杯。",                 startDate:"〜", isNew:false, url:"https://www.marugame-seimen.com/menu/udon/" },
+  { id:72, chainId:"marugame", name:"青唐おろしぶっかけうどん",     category:"うどん", price:"¥590〜", img:MAR+"52d657a64ac1400a8482cd2758613540/udon-aotooroshibukkakeudon.jpg",  desc:"青唐辛子の辛みと大根おろしの爽やかさが合わさった、夏の刺激的な一杯。",                     startDate:"〜", isNew:true,  url:"https://www.marugame-seimen.com/menu/udon/" },
+
+  // ── ガスト ───────────────────────────────────────────────
+  { id:73, chainId:"gusto", name:"純氷かき氷 抹茶黒蜜",              category:"スイーツ", price:"¥879",  img:GUS+"17486-647-0cd172487f64d964c050e6a78ec50144-1007x753.png",    desc:"",  startDate:"5/21〜10/21",  isNew:true,  url:"https://www.skylark.co.jp/gusto/menu/fair2/index.html" },
+  { id:74, chainId:"gusto", name:"純氷かき氷 カフェモカ",             category:"スイーツ", price:"¥879",  img:GUS+"17486-647-00d87ba5715df9f206348f9665eca11b-1006x860.png",   desc:"",  startDate:"5/21〜10/21",  isNew:true,  url:"https://www.skylark.co.jp/gusto/menu/fair2/index.html" },
+  { id:75, chainId:"gusto", name:"純氷かき氷 練乳いちご",             category:"スイーツ", price:"¥549",  img:GUS+"17486-647-472f38f3b828daa4e543f6df513ceae2-3341x2041.png",  desc:"",  startDate:"5/21〜10/21",  isNew:false, url:"https://www.skylark.co.jp/gusto/menu/fair2/index.html" },
+  { id:76, chainId:"gusto", name:"純氷かき氷 ブルークリームソーダ",   category:"スイーツ", price:"¥549",  img:GUS+"17486-647-caa992b965264e4c012cbf1bf896366a-2410x2005.jpg",   desc:"",  startDate:"5/21〜10/21",  isNew:false, url:"https://www.skylark.co.jp/gusto/menu/fair2/index.html" },
+  { id:77, chainId:"gusto", name:"海老と蒸し鶏のコク旨冷麺",         category:"冷麺",     price:"¥850〜", img:GUS+"17486-647-a1c646fa4780e249a300d697c319d6c0-2000x1335.png",  desc:"",  startDate:"5/21〜10/21",  isNew:true,  url:"https://www.skylark.co.jp/gusto/menu/fair2/index.html" },
+  { id:78, chainId:"gusto", name:"ねばとろサラダうどん",              category:"うどん",   price:"¥879〜", img:GUS+"17486-647-bb0fad93c3728b7fa1e2a345209a2656-2824x2085.png",  desc:"",  startDate:"5/21〜10/21",  isNew:true,  url:"https://www.skylark.co.jp/gusto/menu/fair2/index.html" },
+
+  // ── サイゼリヤ ──────────────────────────────────────────
+  { id:79, chainId:"saizeriya", name:"冷たいパンプキンスープ",       category:"サイドメニュー", price:"¥180", img:SAI+"4281043/l/ba678f86d82a722b.jpg", desc:"",  startDate:"6/10〜",  isNew:true,  url:"https://www.saizeriya.co.jp/menu/grandmenu.html" },
+  { id:80, chainId:"saizeriya", name:"チョコレートケーキ＆ミルクジェラート", category:"スイーツ", price:"¥500", img:SAI+"4281044/l/9c142aa11ceb40f2.jpg", desc:"",  startDate:"6/10〜",  isNew:true,  url:"https://www.saizeriya.co.jp/menu/grandmenu.html" },
+  { id:81, chainId:"saizeriya", name:"ラム(仔羊)のランプステーキ",   category:"グリル",   price:"¥1,090", img:SAI+"4281046/l/ae51c310e0550ebd.jpg",    desc:"",  startDate:"6/10〜",  isNew:true,  note:"地域限定", url:"https://www.saizeriya.co.jp/menu/grandmenu.html" },
+];
+
+const ALL_CATEGORIES = ["すべて", ...Object.keys(CATEGORY_ICONS)];
+const chainMap = Object.fromEntries(CHAINS.map(c => [c.id, c]));
+
+function ProductImage({ img, chain, name }) {
+  const [err, setErr] = useState(false);
+  if (img && !err) {
+    return (
+      <div style={{height:160, overflow:"hidden", background:"#f9f9f9", display:"flex", alignItems:"center", justifyContent:"center"}}>
+        <img
+          src={img} alt={name}
+          onError={() => setErr(true)}
+          style={{width:"100%", height:"100%", objectFit:"cover", objectPosition:"center"}}
+        />
+      </div>
+    );
+  }
+  return (
+    <div style={{
+      height:160, background:chain.grad,
+      display:"flex", flexDirection:"column",
+      alignItems:"center", justifyContent:"center", gap:6
+    }}>
+      <span style={{fontSize:44}}>{chain.emoji}</span>
+      <span style={{color:"rgba(255,255,255,0.85)", fontSize:13, fontWeight:"bold"}}>{chain.name}</span>
+    </div>
+  );
+}
+
+function StoresPage({ chainOrder }) {
+  return (
+    <div style={{padding:"16px"}}>
+      {CHAIN_GROUPS.map(group => {
+        const groupChains = chainOrder
+          .filter(id => group.ids.includes(id))
+          .map(id => chainMap[id]);
+        group.ids.forEach(id => { if (!groupChains.find(c => c.id === id)) groupChains.push(chainMap[id]); });
+        return (
+          <div key={group.label} style={{marginBottom:24}}>
+            {/* グループヘッダー */}
+            <div style={{display:"flex", alignItems:"center", gap:10, marginBottom:12}}>
+              <div style={{height:2, flex:1, background:`linear-gradient(90deg,${group.color},transparent)`, borderRadius:1}} />
+              <span style={{fontSize:14, fontWeight:"bold", color:group.color, background:group.bg,
+                padding:"3px 14px", borderRadius:20, border:`1.5px solid ${group.color}30`}}>
+                {group.label}
+              </span>
+              <div style={{height:2, flex:1, background:`linear-gradient(270deg,${group.color},transparent)`, borderRadius:1}} />
+            </div>
+            <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))", gap:12}}>
+              {groupChains.map(chain => {
+          const count = PRODUCTS.filter(p => p.chainId === chain.id).length;
+          return (
+            <a key={chain.id} href={chain.url} target="_blank" rel="noopener noreferrer"
+              style={{textDecoration:"none"}}>
+              <div className="card" style={{
+                background:"white", borderRadius:14, overflow:"hidden",
+                boxShadow:"0 2px 8px rgba(0,0,0,0.07)",
+                border:`1.5px solid ${chain.bg}`,
+                transition:"transform .15s, box-shadow .15s", cursor:"pointer"
+              }}>
+                {/* Gradient accent bar */}
+                <div style={{height:6, background:chain.grad}} />
+                {/* Logo area */}
+                <div style={{
+                  padding:"20px 16px 12px",
+                  display:"flex", flexDirection:"column", alignItems:"center", gap:10
+                }}>
+                  <div style={{
+                    height:64, width:"100%", display:"flex",
+                    alignItems:"center", justifyContent:"center"
+                  }}>
+                    <img
+                      src={chain.logo} alt={chain.name}
+                      style={{maxHeight:64, maxWidth:"80%", objectFit:"contain"}}
+                      onError={e => { e.target.style.display="none"; e.target.nextSibling.style.display="flex"; }}
+                    />
+                    <div style={{display:"none", fontSize:36, alignItems:"center", justifyContent:"center"}}>{chain.emoji}</div>
+                  </div>
+                  <div style={{fontSize:14, color:"#64748B"}}>期間限定 <strong style={{color:chain.color}}>{PRODUCTS.filter(p=>p.chainId===chain.id).length}品</strong> 掲載中</div>
+                </div>
+                <div style={{padding:"10px 16px 14px", display:"flex", alignItems:"center", justifyContent:"space-between", borderTop:`1px solid ${chain.bg}`}}>
+                  <span style={{fontSize:14, color:chain.color, fontWeight:"bold"}}>公式メニューを見る</span>
+                  <span style={{fontSize:14, color:chain.color}}>→</span>
+                </div>
+              </div>
+            </a>
+          );
+        })}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function App() {
+  const [selectedChains, setSelectedChains] = useState(
+    Object.fromEntries(CHAINS.map(c => [c.id, true]))
+  );
+  const [selectedCategory, setSelectedCategory] = useState("すべて");
+  const [chainOrder, setChainOrder] = useState(CHAINS.map(c => c.id));
+  const [view, setView] = useState("menu"); // "menu" | "stores"
+  const [dragOver, setDragOver] = useState(null);
+  const dragItem = useRef(null);
+
+  const toggleChain = (id) => setSelectedChains(prev => ({ ...prev, [id]: !prev[id] }));
+
+  const scrollToChain = (id) => {
+    // チェーンが非表示の場合は表示してからスクロール
+    if (!selectedChains[id]) {
+      setSelectedChains(prev => ({ ...prev, [id]: true }));
+      setTimeout(() => {
+        const el = document.getElementById(`chain-section-${id}`);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+    } else {
+      const el = document.getElementById(`chain-section-${id}`);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const handleDragStart = (id) => { dragItem.current = id; };
+  const handleDragOver = (e, id) => { e.preventDefault(); setDragOver(id); };
+  const handleDrop = (targetId) => {
+    if (!dragItem.current || dragItem.current === targetId) { setDragOver(null); return; }
+    setChainOrder(prev => {
+      const arr = [...prev];
+      const from = arr.indexOf(dragItem.current);
+      const to   = arr.indexOf(targetId);
+      arr.splice(from, 1);
+      arr.splice(to, 0, dragItem.current);
+      return arr;
+    });
+    dragItem.current = null;
+    setDragOver(null);
+  };
+  const handleDragEnd = () => { dragItem.current = null; setDragOver(null); };
+
+  const orderedChains = chainOrder.map(id => chainMap[id]);
+
+  const filtered = useMemo(() => {
+    // グループ行順 → グループ内のchainOrder順 でインデックスを構築
+    const displayOrder = {};
+    let idx = 0;
+    CHAIN_GROUPS.forEach(group => {
+      const ordered = chainOrder.filter(id => group.ids.includes(id));
+      group.ids.forEach(id => { if (!ordered.includes(id)) ordered.push(id); });
+      ordered.forEach(id => { displayOrder[id] = idx++; });
+    });
+    return PRODUCTS
+      .filter(p => {
+        const chainOk = selectedChains[p.chainId];
+        const catOk   = selectedCategory === "すべて" || p.category === selectedCategory;
+        return chainOk && catOk;
+      })
+      .sort((a, b) => displayOrder[a.chainId] - displayOrder[b.chainId]);
+  }, [selectedChains, selectedCategory, chainOrder]);
+
+  return (
+    <div style={{background:"#F7F8FA", minHeight:"100vh"}}>
+
+      {/* Header */}
+      <div style={{background:"linear-gradient(135deg,#1a1a2e,#0f3460)", color:"white", padding:"24px 20px 20px", textAlign:"center"}}>
+        <div style={{fontSize:26, fontWeight:"bold"}}>🍽️ 期間限定メニュー</div>
+        <div style={{display:"flex", gap:8, justifyContent:"center", marginTop:14}}>
+          {[{id:"menu", label:"🍽️ メニュー"}, {id:"stores", label:"🏪 全店舗"}].map(tab => (
+            <button key={tab.id} onClick={() => setView(tab.id)}
+              style={{padding:"6px 18px", borderRadius:20, border:"none", cursor:"pointer", fontSize:13, fontWeight:"bold",
+                background: view === tab.id ? "white" : "rgba(255,255,255,0.15)",
+                color: view === tab.id ? "#1a1a2e" : "white",
+                transition:"all .15s"}}>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {view === "stores" ? (
+        <StoresPage chainOrder={chainOrder} />
+      ) : (
+        <>
+          {/* Sticky filters */}
+          <div style={{background:"white", padding:"14px 16px", boxShadow:"0 2px 8px rgba(0,0,0,0.08)", position:"sticky", top:0, zIndex:10}}>
+            <div style={{marginBottom:10}}>
+              {CHAIN_GROUPS.map(group => {
+                // group内のチェーンをchainOrderに従って並べる
+                const groupChains = chainOrder
+                  .filter(id => group.ids.includes(id))
+                  .map(id => chainMap[id]);
+                // chainOrderにないIDも一応フォールバック
+                group.ids.forEach(id => {
+                  if (!groupChains.find(c => c.id === id)) groupChains.push(chainMap[id]);
+                });
+                return (
+                  <div key={group.label} style={{marginBottom:8}}>
+                    <div style={{fontSize:14, color:"#94A3B8", fontWeight:"bold", marginBottom:5, letterSpacing:".5px"}}>
+                      {group.label}
+                    </div>
+                    <div style={{display:"flex", gap:6, flexWrap:"wrap"}}>
+                      {groupChains.map(chain => {
+                        const active = selectedChains[chain.id];
+                        const isDragTarget = dragOver === chain.id;
+                        return (
+                          <button key={chain.id}
+                            draggable
+                            onDragStart={() => handleDragStart(chain.id)}
+                            onDragOver={e => handleDragOver(e, chain.id)}
+                            onDrop={() => handleDrop(chain.id)}
+                            onDragEnd={handleDragEnd}
+                            onClick={() => scrollToChain(chain.id)}
+                            className="chain-btn"
+                            style={{display:"flex", alignItems:"center", gap:4, padding:"5px 11px", borderRadius:16,
+                              border:`2px solid ${isDragTarget ? "#6366F1" : group.color}`,
+                              background: isDragTarget ? "#EEF2FF" : group.bg,
+                              color: group.color,
+                              fontWeight:"bold", fontSize:14, cursor:"pointer",
+                              transition:"all .15s",
+                              opacity: dragItem.current === chain.id ? 0.5 : 1}}>
+                            {chain.name}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div style={{display:"flex", gap:5, flexWrap:"wrap"}}>
+              {ALL_CATEGORIES.map(cat => {
+                const active = selectedCategory === cat;
+                return (
+                  <button key={cat} onClick={() => setSelectedCategory(cat)} className="cat-btn"
+                    style={{padding:"4px 10px", borderRadius:14, border:"none",
+                      background: active ? "#1a1a2e" : "#EDF2F7",
+                      color: active ? "white" : "#4A5568",
+                      fontSize:13, cursor:"pointer", fontWeight: active ? "bold" : "normal",
+                      transition:"all .15s"}}>
+                    {cat}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div style={{padding:"10px 16px 4px", fontSize:14, color:"#64748B"}}>{filtered.length}件表示中</div>
+
+          {/* Grid */}
+          <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(270px,1fr))", gap:16, padding:"8px 16px 32px"}}>
+            {filtered.length === 0 ? (
+              <div style={{gridColumn:"1/-1", textAlign:"center", padding:"60px 20px", color:"#94A3B8"}}>
+                <div style={{fontSize:40, marginBottom:10}}>🔍</div>
+                <div>条件に合う商品が見つかりませんでした</div>
+              </div>
+            ) : filtered.reduce((acc, p, i) => {
+              const chain = chainMap[p.chainId];
+              const prev  = filtered[i - 1];
+              if (!prev || prev.chainId !== p.chainId) {
+                acc.push(
+                  <div key={`sep-${p.chainId}`} id={`chain-section-${p.chainId}`} style={{
+                    gridColumn:"1/-1", display:"flex", alignItems:"center", gap:10,
+                    paddingTop: i === 0 ? 0 : 8, scrollMarginTop: 120
+                  }}>
+                    <div style={{height:2, flex:1, background:chain.grad, borderRadius:1, opacity:.4}} />
+                    <span style={{fontSize:15, fontWeight:"bold", color:chain.color, background:chain.bg,
+                      padding:"4px 14px", borderRadius:20, border:`1.5px solid ${chain.color}30`, whiteSpace:"nowrap"}}>
+                      {chain.emoji} {chain.name}
+                    </span>
+                    <div style={{height:2, flex:1, background:chain.grad, borderRadius:1, opacity:.4}} />
+                  </div>
+                );
+              }
+              acc.push(
+                <a key={p.id} href={p.url} target="_blank" rel="noopener noreferrer">
+                  <div className="card" style={{
+                    background:"white", borderRadius:14, overflow:"hidden",
+                    boxShadow:"0 2px 8px rgba(0,0,0,0.07)",
+                    border:`1px solid ${chain.bg}`,
+                    height:"100%", display:"flex", flexDirection:"column",
+                    transition:"transform .15s, box-shadow .15s", cursor:"pointer"
+                  }}>
+                    <ProductImage img={p.img} chain={chain} name={p.name} />
+                    <div style={{padding:"12px 14px", flex:1, display:"flex", flexDirection:"column"}}>
+                      <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:7, flexWrap:"wrap", gap:4}}>
+                        <span style={{fontSize:13, fontWeight:"bold", color:chain.color, background:chain.bg, padding:"2px 8px", borderRadius:10}}>
+                          {chain.emoji} {chain.name}
+                        </span>
+                        <div style={{display:"flex", gap:4, alignItems:"center"}}>
+                          {p.isNew && <span style={{fontSize:12, fontWeight:"bold", color:"white", background:"#E53E3E", padding:"2px 6px", borderRadius:8}}>NEW</span>}
+                          <span style={{fontSize:13, color:"#718096", background:"#F7F8FA", padding:"2px 7px", borderRadius:10}}>
+                            {CATEGORY_ICONS[p.category]||"🍽️"} {p.category}
+                          </span>
+                        </div>
+                      </div>
+                      <div style={{fontSize:16, fontWeight:"bold", color:"#1A202C", marginBottom:8, lineHeight:1.4, flex:1}}>{p.name}</div>
+                      <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:8, borderTop:"1px solid #F1F5F9"}}>
+                        <span style={{fontSize:17, fontWeight:"bold", color:chain.color}}>{p.price}</span>
+                        <div style={{display:"flex", flexDirection:"column", alignItems:"flex-end", gap:3}}>
+                          <div style={{fontSize:12, color:"#94A3B8"}}>📅 {p.startDate === "〜" ? "販売中" : p.startDate}</div>
+                          {p.note && <div style={{fontSize:12, color:"white", background:"#805AD5", padding:"2px 6px", borderRadius:6}}>{p.note}</div>}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              );
+              return acc;
+            }, [])}
+          </div>
+
+          {/* Footer */}
+          <div style={{background:"white", borderTop:"1px solid #EDF2F7", padding:"16px 16px 24px"}}>
+            <div style={{fontSize:13, color:"#94A3B8", marginBottom:10, textAlign:"center"}}>📎 各チェーン 公式ページ</div>
+            <div style={{display:"flex", flexWrap:"wrap", gap:8, justifyContent:"center"}}>
+              {CHAINS.map(chain => (
+                <a key={chain.id} href={chain.url} target="_blank" rel="noopener noreferrer"
+                  style={{fontSize:13, color:chain.color, background:chain.bg, padding:"4px 10px", borderRadius:10, border:`1px solid ${chain.color}30`}}>
+                  {chain.emoji} {chain.name}
+                </a>
+              ))}
+            </div>
+            <div style={{textAlign:"center", fontSize:12, color:"#CBD5E0", marginTop:10}}>
+              各チェーン公式サイトより取得 • データ取得: 2026年6月7日
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
