@@ -52,7 +52,7 @@
 <div id="root"></div>
 
 <script>
-const { useState, useMemo, useRef } = React;
+const { useState, useMemo, useRef, useEffect } = React;
 const html = htm.bind(React.createElement);
 
 const CHAINS = [
@@ -281,7 +281,18 @@ function App() {
     Object.fromEntries(CHAINS.map(c => [c.id, true]))
   );
   const [selectedCategory, setSelectedCategory] = useState("すべて");
-  const [chainOrder, setChainOrder] = useState(CHAINS.map(c => c.id));
+  const [chainOrder, setChainOrder] = useState(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('chainOrder') || 'null');
+      const allIds = CHAINS.map(c => c.id);
+      if (saved && saved.length === allIds.length && allIds.every(id => saved.includes(id))) return saved;
+    } catch(e) {}
+    return CHAINS.map(c => c.id);
+  });
+
+  useEffect(() => {
+    localStorage.setItem('chainOrder', JSON.stringify(chainOrder));
+  }, [chainOrder]);
   const [view, setView] = useState("menu");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [dragOver, setDragOver] = useState(null);
