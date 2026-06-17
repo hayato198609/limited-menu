@@ -72,17 +72,18 @@ const CHAINS = [
   { id:"marugame",   name:"丸亀製麺",       color:"#C0392B", bg:"#FFF5F5", grad:"linear-gradient(135deg,#C0392B,#E74C3C)", emoji:"🍜", url:"https://www.marugame-seimen.com/menu/udon/",                         logo:"https://jp.marugame.com/icon.svg" },
   { id:"gusto",      name:"ガスト",         color:"#E65100", bg:"#FFF3E0", grad:"linear-gradient(135deg,#E65100,#FF8F00)", emoji:"🍽️", url:"https://www.skylark.co.jp/gusto/menu/fair2/index.html",              logo:"https://www.skylark.co.jp/site_resource/gusto/images/logo.svg" },
   { id:"saizeriya",  name:"サイゼリヤ",     color:"#B71C1C", bg:"#FFF5F5", grad:"linear-gradient(135deg,#B71C1C,#E53935)", emoji:"🇮🇹", url:"https://www.saizeriya.co.jp/menu/grandmenu.html",                    logo:"https://www.saizeriya.co.jp/wp-content/themes/saizeriya/assets/images/logo.webp" },
+  { id:"subway",     name:"サブウェイ",     color:"#009B3A", bg:"#F0FFF4", grad:"linear-gradient(135deg,#009B3A,#00C851)", emoji:"🥖", url:"https://www.subway.co.jp/menu/sandwich/",                              logo:"https://www.subway.co.jp/common/images/logo.png" },
 ];
 
 const CHAIN_GROUPS = [
-  { label:"バーガー",   ids:["mcdonalds","kfc","burgerking","mosburger","zetteria"],       color:"#C8102E", bg:"#FFF0F2" },
+  { label:"バーガー",   ids:["mcdonalds","kfc","burgerking","mosburger","zetteria","subway"], color:"#C8102E", bg:"#FFF0F2" },
   { label:"牛丼・麺",   ids:["yoshinoya","sukiya","matsuya","nakau","marugame"],            color:"#B45309", bg:"#FFFBEB" },
   { label:"ファミレス", ids:["gusto","saizeriya"],                                         color:"#E65100", bg:"#FFF3E0" },
   { label:"カフェ",     ids:["starbucks","tullys","saintmarc"],                             color:"#00704A", bg:"#F0FFF8" },
 ];
 
 const CATEGORY_ICONS = {
-  "バーガー":"🍔", "ドリンク":"🥤", "サイドメニュー":"🍟",
+  "バーガー":"🍔", "サンドイッチ":"🥖", "ドリンク":"🥤", "サイドメニュー":"🍟",
   "定食":"🍱", "丼":"🍜", "カレー":"🍛", "チキン":"🍗", "スイーツ":"🍰",
   "うどん":"🍲", "海鮮丼":"🐟", "冷麺":"🍜", "グリル":"🥩",
 };
@@ -92,6 +93,7 @@ const YOS = "https://www.yoshinoya.com/wp-content/uploads/";
 const MAT = "https://www.matsuyafoods.co.jp/menu/upload_images/";
 const MAR = "https://images.microcms-assets.io/assets/58eb40d284924aeb96de2de93fa08d93/";
 const GUS = "https://prcdn.freetls.fastly.net/release_image/17486/647/";
+const SUB = "https://www.subway.co.jp/assets_c/";
 const SAI = "https://ascii.jp/img/2025/06/20/";
 
 const PRODUCTS = [
@@ -200,11 +202,19 @@ const PRODUCTS = [
   { id:79, chainId:"saizeriya", name:"冷たいパンプキンスープ",              category:"サイドメニュー", price:"¥180",   img:SAI+"4281043/l/ba678f86d82a722b.jpg", startDate:"6/10〜", isNew:true, url:"https://www.saizeriya.co.jp/menu/grandmenu.html" },
   { id:80, chainId:"saizeriya", name:"チョコレートケーキ＆ミルクジェラート", category:"スイーツ",      price:"¥500",   img:SAI+"4281044/l/9c142aa11ceb40f2.jpg", startDate:"6/10〜", isNew:true, url:"https://www.saizeriya.co.jp/menu/grandmenu.html" },
   { id:81, chainId:"saizeriya", name:"ラム(仔羊)のランプステーキ",          category:"グリル",        price:"¥1,090", img:SAI+"4281046/l/ae51c310e0550ebd.jpg", startDate:"6/10〜", isNew:true, note:"地域限定", url:"https://www.saizeriya.co.jp/menu/grandmenu.html" },
+
+  // ── サブウェイ ───────────────────────────────────────────────
+  { id:82, chainId:"subway", name:"ざく切りサルサタコス",      category:"サンドイッチ", price:"¥630〜", img:SUB+"2026/05/SS_only-thumb-206xauto-5117.jpg",                                         startDate:"5/13〜", isNew:false, url:"https://www.subway.co.jp/menu/sandwich/" },
+  { id:83, chainId:"subway", name:"濃厚チーズタコス",          category:"サンドイッチ", price:"¥650〜", img:SUB+"2026/05/CS%20_only-thumb-206xauto-5118.jpg",                                      startDate:"5/13〜", isNew:false, url:"https://www.subway.co.jp/menu/sandwich/" },
+  { id:84, chainId:"subway", name:"メキシカンミートタコス",    category:"サンドイッチ", price:"¥590〜", img:SUB+"2026/05/205445f9541b9f4ac795403240b6af22e833f82d-thumb-206xauto-5119.jpg",          startDate:"5/13〜", isNew:false, url:"https://www.subway.co.jp/menu/sandwich/" },
+  { id:85, chainId:"subway", name:"モヒート風ジンジャーエール",category:"ドリンク",     price:"¥390",   img:SUB+"2026/05/e0c817a7cebb8092ec421512d2fbe0ce8ff38f50-thumb-157xauto-5120.jpg",          startDate:"5/13〜", isNew:false, url:"https://www.subway.co.jp/menu/drink/" },
+  { id:86, chainId:"subway", name:"ローストビーフ（リニューアル）", category:"サンドイッチ", price:"¥790", img:SUB+"2026/06/0ebab1b39c1aa5adc46fdcfc39d9870de5fcbe5e-thumb-247xauto-5148.png",  startDate:"6/10〜", isNew:true,  url:"https://www.subway.co.jp/menu/sandwich/" },
+  { id:87, chainId:"subway", name:"ダブルチョコクッキー",      category:"スイーツ",     price:"¥250",   img:SUB+"2026/06/b110c7a60facacefe0f5bb543d369da862b872e2-thumb-157xauto-5149.png",          startDate:"6/10〜", isNew:true,  url:"https://www.subway.co.jp/menu/sidemenu/" },
 ];
 
 const CATEGORY_FILTERS = [
   { label:"すべて",           cats: null },
-  { label:"バーガー",         cats: ["バーガー"] },
+  { label:"バーガー・サンド", cats: ["バーガー", "サンドイッチ"] },
   { label:"ドリンク・スイーツ", cats: ["ドリンク", "スイーツ"] },
   { label:"サイドメニュー",   cats: ["サイドメニュー", "チキン", "グリル"] },
   { label:"定食・丼",         cats: ["定食", "丼", "海鮮丼", "カレー"] },
