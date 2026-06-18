@@ -71,7 +71,6 @@ const CHAINS = [
   { id:"saintmarc",  name:"サンマルクカフェ",color:"#7B3F1E", bg:"#FFF8F2", grad:"linear-gradient(135deg,#7B3F1E,#C47A3A)", emoji:"🥐", url:"https://www.saint-marc-hd.com/saintmarccafe/menu/saintmarccafe/category/seasonal_2/", menuUrl:"https://www.saint-marc-hd.com/saintmarccafe/menu/", logo:"https://www.saint-marc-hd.com/assets/images/saintmarccafe/logo-brown.svg" },
   { id:"marugame",   name:"丸亀製麺",       color:"#C0392B", bg:"#FFF5F5", grad:"linear-gradient(135deg,#C0392B,#E74C3C)", emoji:"🍜", url:"https://www.marugame-seimen.com/menu/udon/",                         menuUrl:"https://www.marugame-seimen.com/menu/",                                                    logo:"https://jp.marugame.com/icon.svg" },
   { id:"gusto",      name:"ガスト",         color:"#E65100", bg:"#FFF3E0", grad:"linear-gradient(135deg,#E65100,#FF8F00)", emoji:"🍽️", url:"https://www.skylark.co.jp/gusto/menu/fair2/index.html",              menuUrl:"https://www.skylark.co.jp/gusto/menu/",                                                    logo:"https://www.skylark.co.jp/site_resource/gusto/images/logo.svg" },
-  { id:"saizeriya",  name:"サイゼリヤ",     color:"#B71C1C", bg:"#FFF5F5", grad:"linear-gradient(135deg,#B71C1C,#E53935)", emoji:"🇮🇹", url:"https://www.saizeriya.co.jp/menu/grandmenu.html",                    menuUrl:"https://www.saizeriya.co.jp/menu/",                                                        logo:"https://www.saizeriya.co.jp/wp-content/themes/saizeriya/assets/images/logo.webp" },
   { id:"subway",     name:"サブウェイ",     color:"#009B3A", bg:"#F0FFF4", grad:"linear-gradient(135deg,#009B3A,#00C851)", emoji:"🥖", url:"https://www.subway.co.jp/menu/sandwich/",                              menuUrl:"https://www.subway.co.jp/menu/",                                                           logo:"https://www.subway.co.jp/common/images/logo.png", logoStyle:{height:62, maxWidth:"95%"} },
   { id:"familymart", name:"ファミリーマート", color:"#2d5bab", bg:"#F0F4FF", grad:"linear-gradient(135deg,#1a3d8f,#2d5bab)", emoji:"🏪", url:"https://www.family.co.jp/goods/", menuUrl:"https://www.family.co.jp/goods/", logo:"https://www.family.co.jp/content/dam/img/logo/sp/logo_fm.png" },
   { id:"lawson",     name:"ローソン",         color:"#0033A0", bg:"#F0F5FF", grad:"linear-gradient(135deg,#0033A0,#4169E1)", emoji:"🏪", url:"https://www.lawson.co.jp/recommend/", menuUrl:"https://www.lawson.co.jp/recommend/", logo:"https://www.lawson.co.jp/common2015/img/logo_lawson.png" },
@@ -81,7 +80,7 @@ const CHAINS = [
 const CHAIN_GROUPS = [
   { label:"バーガー",   ids:["mcdonalds","kfc","burgerking","mosburger","zetteria","subway"], color:"#C8102E", bg:"#FFF0F2" },
   { label:"牛丼・麺",   ids:["yoshinoya","sukiya","matsuya","nakau","marugame"],            color:"#B45309", bg:"#FFFBEB" },
-  { label:"ファミレス", ids:["gusto","saizeriya"],                                         color:"#E65100", bg:"#FFF3E0" },
+  { label:"ファミレス", ids:["gusto"],                                                      color:"#E65100", bg:"#FFF3E0" },
   { label:"カフェ",     ids:["starbucks","tullys","saintmarc"],                             color:"#00704A", bg:"#F0FFF8" },
   { label:"コンビニ",   ids:["familymart","lawson","sej"],                                  color:"#0033A0", bg:"#F0F5FF" },
 ];
@@ -206,11 +205,6 @@ const PRODUCTS = [
   { id:76, chainId:"gusto", name:"純氷かき氷 ブルークリームソーダ",   category:"スイーツ", price:"¥549",  img:GUS+"17486-647-caa992b965264e4c012cbf1bf896366a-2410x2005.jpg",   startDate:"5/21〜10/21", isNew:false, url:"https://www.skylark.co.jp/gusto/menu/fair2/index.html" },
   { id:77, chainId:"gusto", name:"海老と蒸し鶏のコク旨冷麺",         category:"冷麺",     price:"¥850〜", img:GUS+"17486-647-a1c646fa4780e249a300d697c319d6c0-2000x1335.png",  startDate:"5/21〜10/21", isNew:true,  url:"https://www.skylark.co.jp/gusto/menu/fair2/index.html" },
   { id:78, chainId:"gusto", name:"ねばとろサラダうどん",              category:"うどん",   price:"¥879〜", img:GUS+"17486-647-bb0fad93c3728b7fa1e2a345209a2656-2824x2085.png",  startDate:"5/21〜10/21", isNew:true,  url:"https://www.skylark.co.jp/gusto/menu/fair2/index.html" },
-
-  // ── サイゼリヤ ──────────────────────────────────────────
-  { id:79, chainId:"saizeriya", name:"冷たいパンプキンスープ",              category:"サイドメニュー", price:"¥180",   img:SAI+"4281043/l/ba678f86d82a722b.jpg", startDate:"6/10〜", isNew:true, url:"https://www.saizeriya.co.jp/menu/grandmenu.html" },
-  { id:80, chainId:"saizeriya", name:"チョコレートケーキ＆ミルクジェラート", category:"スイーツ",      price:"¥500",   img:SAI+"4281044/l/9c142aa11ceb40f2.jpg", startDate:"6/10〜", isNew:true, url:"https://www.saizeriya.co.jp/menu/grandmenu.html" },
-  { id:81, chainId:"saizeriya", name:"ラム(仔羊)のランプステーキ",          category:"グリル",        price:"¥1,090", img:SAI+"4281046/l/ae51c310e0550ebd.jpg", startDate:"6/10〜", isNew:true, note:"地域限定", url:"https://www.saizeriya.co.jp/menu/grandmenu.html" },
 
   // ── サブウェイ ───────────────────────────────────────────────
   { id:82, chainId:"subway", name:"ざく切りサルサタコス",      category:"サンドイッチ", price:"¥630〜", img:SUB+"2026/05/SS_only-thumb-206xauto-5117.jpg",                                         startDate:"5/13〜", isNew:false, url:"https://www.subway.co.jp/menu/sandwich/" },
