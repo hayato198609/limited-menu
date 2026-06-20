@@ -257,12 +257,12 @@ const PRODUCTS = [
 ];
 
 const CATEGORY_FILTERS = [
-  { label:"すべて",             cats: null },
-  { label:"バーガー・サンド",   cats: ["バーガー", "サンドイッチ", "ホットスナック"] },
-  { label:"ドリンク・スイーツ", cats: ["ドリンク", "スイーツ", "アイス"] },
-  { label:"サイドメニュー",     cats: ["サイドメニュー", "チキン", "グリル"] },
-  { label:"定食・丼",           cats: ["定食", "丼", "海鮮丼", "カレー"] },
-  { label:"麺類",               cats: ["うどん", "冷麺"] },
+  { label:"すべて",               cats: null },
+  { label:"バーガー・サンド",     cats: ["バーガー", "サンドイッチ"] },
+  { label:"アイス・スイーツ・ドリンク", cats: ["ドリンク", "スイーツ", "アイス"] },
+  { label:"スナック・サイドメニュー",   cats: ["ホットスナック", "サイドメニュー", "チキン", "グリル"] },
+  { label:"定食・丼・カレー",     cats: ["定食", "丼", "海鮮丼", "カレー"] },
+  { label:"麺類",                 cats: ["うどん", "冷麺"] },
 ];
 const chainMap = Object.fromEntries(CHAINS.map(c => [c.id, c]));
 
