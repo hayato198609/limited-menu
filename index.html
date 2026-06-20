@@ -375,6 +375,16 @@ function App() {
   const dragItem = useRef(null);
   const [dragGroupOver, setDragGroupOver] = useState(null);
   const dragGroupItem = useRef(null);
+  const [catOrder, setCatOrder] = useState(() => {
+    try { const s = localStorage.getItem('catOrder'); if(s) return JSON.parse(s); } catch {}
+    return CATEGORY_FILTERS.map(f => f.label);
+  });
+  const [catDragIdx, setCatDragIdx] = useState(null);
+  const [catHoverIdx, setCatHoverIdx] = useState(null);
+  const catLongTimer = useRef(null);
+  const catDragRef = useRef(null);
+  const catHoverRef = useRef(null);
+  const catWasDrag = useRef(false);
 
   const toggleChain = (id) => setSelectedChains(prev => ({ ...prev, [id]: !prev[id] }));
 
@@ -389,6 +399,40 @@ function App() {
       const el = document.getElementById("chain-section-"+id);
       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+  };
+
+  const catStartPress = (idx) => {
+    catLongTimer.current = setTimeout(() => {
+      if (navigator.vibrate) navigator.vibrate(50);
+      catDragRef.current = idx;
+      setCatDragIdx(idx);
+    }, 500);
+  };
+  const catEndPress = () => {
+    clearTimeout(catLongTimer.current);
+    if (catDragRef.current !== null) {
+      catWasDrag.current = true;
+      const from = catDragRef.current, to = catHoverRef.current;
+      if (to !== null && to !== from) {
+        setCatOrder(prev => {
+          const arr = [...prev];
+          const [item] = arr.splice(from, 1);
+          arr.splice(to, 0, item);
+          try { localStorage.setItem('catOrder', JSON.stringify(arr)); } catch {}
+          return arr;
+        });
+      }
+      catDragRef.current = null; catHoverRef.current = null;
+      setCatDragIdx(null); setCatHoverIdx(null);
+      setTimeout(() => { catWasDrag.current = false; }, 50);
+    }
+  };
+  const catMoveHandler = (e) => {
+    if (catDragRef.current === null) return;
+    const pt = e.touches ? e.touches[0] : e;
+    const el = document.elementFromPoint(pt.clientX, pt.clientY);
+    const btn = el?.closest('[data-catidx]');
+    if (btn) { const idx = Number(btn.dataset.catidx); catHoverRef.current = idx; setCatHoverIdx(idx); }
   };
 
   const handleDragStart = (id) => { dragItem.current = id; };
@@ -492,14 +536,32 @@ function App() {
           </button>`}
         </div>
         ${filtersOpen && view === "menu" && html`<div style=${{padding:"12px 16px 14px", maxHeight:"calc(100vh - 120px)", overflowY:"auto"}}>
-              <div style=${{display:"flex", gap:5, flexWrap:"wrap", marginBottom:12}}>
-                ${CATEGORY_FILTERS.map(f => {
+              <div style=${{display:"flex", gap:5, flexWrap:"wrap", marginBottom:12}}
+                   onMouseMove=${catMoveHandler}
+                   onMouseUp=${catEndPress}
+                   onTouchMove=${(e) => { e.preventDefault(); catMoveHandler(e); }}
+                   onTouchEnd=${catEndPress}>
+                ${catOrder.map((label, idx) => {
+                  const f = CATEGORY_FILTERS.find(cf => cf.label === label);
+                  if (!f) return null;
                   const active = selectedCategory === f.label;
-                  return html`<button key=${f.label} onClick=${() => { setSelectedCategory(f.label); setFiltersOpen(false); }} class="cat-btn"
-                    style=${{padding:"4px 10px", borderRadius:14, border:"none",
-                      background: active ? "#1a1a2e" : "#EDF2F7",
-                      color: active ? "white" : "#4A5568",
-                      fontSize:13, cursor:"pointer", fontWeight: active ? "bold" : "normal",
+                  const isDragging = catDragIdx === idx;
+                  const isTarget = catHoverIdx === idx && catDragIdx !== null && catDragIdx !== idx;
+                  return html`<button key=${label}
+                    data-catidx=${idx}
+                    onMouseDown=${() => catStartPress(idx)}
+                    onTouchStart=${(e) => { e.preventDefault(); catStartPress(idx); }}
+                    onClick=${() => { if(!catWasDrag.current) { setSelectedCategory(f.label); setFiltersOpen(false); } }}
+                    class="cat-btn"
+                    style=${{padding:"4px 10px", borderRadius:14,
+                      border: isTarget ? "2px dashed #6366F1" : "2px solid transparent",
+                      background: isDragging ? "#6366F1" : active ? "#1a1a2e" : "#EDF2F7",
+                      color: isDragging || active ? "white" : "#4A5568",
+                      fontSize:13, cursor: catDragIdx !== null ? "grabbing" : "pointer",
+                      fontWeight: active ? "bold" : "normal",
+                      opacity: isDragging ? 0.6 : 1,
+                      transform: isDragging ? "scale(1.08)" : "none",
+                      userSelect:"none", touchAction:"none",
                       transition:"all .15s"}}>
                     ${f.label}
                   </button>`;
