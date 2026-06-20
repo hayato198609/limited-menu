@@ -257,13 +257,12 @@ const PRODUCTS = [
 ];
 
 const CATEGORY_FILTERS = [
-  { label:"すべて",           cats: null },
-  { label:"バーガー・サンド", cats: ["バーガー", "サンドイッチ"] },
-  { label:"ドリンク・スイーツ", cats: ["ドリンク", "スイーツ"] },
-  { label:"アイス・スナック", cats: ["アイス", "ホットスナック"] },
-  { label:"サイドメニュー",   cats: ["サイドメニュー", "チキン", "グリル"] },
-  { label:"定食・丼",         cats: ["定食", "丼", "海鮮丼", "カレー"] },
-  { label:"麺類",             cats: ["うどん", "冷麺"] },
+  { label:"すべて",             cats: null },
+  { label:"バーガー・サンド",   cats: ["バーガー", "サンドイッチ", "ホットスナック"] },
+  { label:"ドリンク・スイーツ", cats: ["ドリンク", "スイーツ", "アイス"] },
+  { label:"サイドメニュー",     cats: ["サイドメニュー", "チキン", "グリル"] },
+  { label:"定食・丼",           cats: ["定食", "丼", "海鮮丼", "カレー"] },
+  { label:"麺類",               cats: ["うどん", "冷麺"] },
 ];
 const chainMap = Object.fromEntries(CHAINS.map(c => [c.id, c]));
 
@@ -468,7 +467,7 @@ function App() {
       <div style=${{background:"linear-gradient(135deg,#1a1a2e,#0f3460)", color:"white", padding:"24px 20px 20px", textAlign:"center"}}>
         <div style=${{fontSize:26, fontWeight:"bold"}}>期間限定メニュー</div>
         <div style=${{fontSize:12, color:"rgba(255,255,255,0.6)", marginTop:8}}>
-          🔍 ${CHAINS.filter(c => selectedChains[c.id]).length}チェーン・${selectedCategory === "すべて" ? "全カテゴリ" : selectedCategory}
+          🔍 ${CHAINS.filter(c => selectedChains[c.id]).length}チェーン・${filtered.length}件表示中・${selectedCategory === "すべて" ? "全カテゴリ" : selectedCategory}
         </div>
       </div>
 
@@ -493,6 +492,19 @@ function App() {
           </button>`}
         </div>
         ${filtersOpen && view === "menu" && html`<div style=${{padding:"12px 16px 14px", maxHeight:"calc(100vh - 120px)", overflowY:"auto"}}>
+              <div style=${{display:"flex", gap:5, flexWrap:"wrap", marginBottom:12}}>
+                ${CATEGORY_FILTERS.map(f => {
+                  const active = selectedCategory === f.label;
+                  return html`<button key=${f.label} onClick=${() => { setSelectedCategory(f.label); setFiltersOpen(false); }} class="cat-btn"
+                    style=${{padding:"4px 10px", borderRadius:14, border:"none",
+                      background: active ? "#1a1a2e" : "#EDF2F7",
+                      color: active ? "white" : "#4A5568",
+                      fontSize:13, cursor:"pointer", fontWeight: active ? "bold" : "normal",
+                      transition:"all .15s"}}>
+                    ${f.label}
+                  </button>`;
+                })}
+              </div>
               <div style=${{marginBottom:10}}>
                 ${groupOrder.map((label, gi) => {
                   const group = CHAIN_GROUPS.find(g => g.label === label);
@@ -561,19 +573,6 @@ function App() {
                   </div>`;
                 })}
               </div>
-              <div style=${{display:"flex", gap:5, flexWrap:"wrap"}}>
-                ${CATEGORY_FILTERS.map(f => {
-                  const active = selectedCategory === f.label;
-                  return html`<button key=${f.label} onClick=${() => { setSelectedCategory(f.label); setFiltersOpen(false); }} class="cat-btn"
-                    style=${{padding:"4px 10px", borderRadius:14, border:"none",
-                      background: active ? "#1a1a2e" : "#EDF2F7",
-                      color: active ? "white" : "#4A5568",
-                      fontSize:13, cursor:"pointer", fontWeight: active ? "bold" : "normal",
-                      transition:"all .15s"}}>
-                    ${f.label}
-                  </button>`;
-                })}
-              </div>
               <div style=${{textAlign:"center", marginTop:10}}>
                 <button onClick=${() => setFiltersOpen(false)}
                   style=${{padding:"6px 24px", borderRadius:20, border:"1px solid #CBD5E0",
@@ -585,8 +584,6 @@ function App() {
       </div>
 
       ${view === "stores" ? html`<${StoresPage} chainOrder=${chainOrder} groupOrder=${groupOrder} />` : html`
-          <div style=${{padding:"10px 16px 4px", fontSize:14, color:"#64748B"}}>${filtered.length}件表示中</div>
-
           <div class="product-grid">
             ${filtered.length === 0 ? html`
               <div style=${{gridColumn:"1/-1", textAlign:"center", padding:"60px 20px", color:"#94A3B8"}}>
