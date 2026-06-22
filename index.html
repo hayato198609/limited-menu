@@ -318,7 +318,7 @@ function StoresPage({ chainOrder, groupOrder }) {
                 <div style=${{padding:"20px 16px 12px", display:"flex", flexDirection:"column", alignItems:"center", gap:10}}>
                   <div style=${{height:64, width:"100%", display:"flex", alignItems:"center", justifyContent:"center"}}>
                     ${chain.logoText
-                      ? html`<div style=${{fontFamily:"Impact, 'Arial Black', sans-serif", fontSize:30, fontWeight:"bold", color:chain.color, letterSpacing:2, userSelect:"none"}}>${chain.logoText}</div>`
+                      ? html`<div style=${{fontFamily:"Impact, 'Arial Black', sans-serif", fontSize:34, fontWeight:"bold", color:chain.color, letterSpacing:3, userSelect:"none", width:"100%", textAlign:"center"}}>${chain.logoText}</div>`
                       : html`<img
                           src=${chain.logo} alt=${chain.name}
                           style=${{maxHeight:64, maxWidth:"80%", objectFit:"contain", ...(chain.logoStyle||{})}}
