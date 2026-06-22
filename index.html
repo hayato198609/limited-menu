@@ -32,7 +32,7 @@
     gap: 16px;
     padding: 8px 16px 32px;
   }
-  .stores-grid { grid-template-columns: repeat(3, 1fr) !important; }
+  .stores-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
   @media (max-width: 600px) {
     .product-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -304,7 +304,7 @@ function StoresPage({ chainOrder, groupOrder }) {
           </span>
           <div style=${{height:2, flex:1, background:"linear-gradient(270deg,"+group.color+",transparent)", borderRadius:1}} />
         </div>
-        <div class="stores-grid" style=${{display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:12}}>
+        <div class="stores-grid" style=${{display:"grid", gridTemplateColumns:"repeat(2,minmax(0,1fr))", gap:12}}>
           ${groupChains.map(chain => html`
             <a key=${chain.id} href=${chain.menuUrl} target="_blank" rel="noopener noreferrer"
               style=${{textDecoration:"none"}}>
