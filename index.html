@@ -115,6 +115,7 @@ const PRODUCTS = [
   { id:90, chainId:"mcdonalds", name:"アボカドマヨチーズシュリンプ",             category:"バーガー",      price:"¥490〜", img:MCD2+"36561/file.png", startDate:"6/17〜", isNew:true,  url:"https://www.mcdonalds.co.jp/campaign/fifa-wc/" },
   { id:91, chainId:"mcdonalds", name:"シャカシャカポテト® ガーリックステーキ味", category:"サイドメニュー",price:"¥50〜(追加)", img:MCD2+"36564/file.png", startDate:"6/17〜", isNew:true,  url:"https://www.mcdonalds.co.jp/campaign/fifa-wc/" },
   { id:92, chainId:"mcdonalds", name:"マックフィズ® ブルーエナジー",             category:"ドリンク",      price:"¥300〜", img:MCD2+"36565/file.png", startDate:"6/17〜", isNew:true,  url:"https://www.mcdonalds.co.jp/campaign/fifa-wc/" },
+  { id:146, chainId:"mcdonalds", name:"マックフロート® ブルーエナジー",           category:"ドリンク",      price:"¥380〜", img:MCD2+"36566/file.png", startDate:"6/17〜", isNew:true,  url:"https://www.mcdonalds.co.jp/campaign/fifa-wc/" },
 
   // ── スターバックス ────────────────────────────────────────
   { id:9,  chainId:"starbucks", name:"バナナ アフォガート フラペチーノ®",        category:"ドリンク", price:"¥700",   img:"https://asset.menu.starbucks.co.jp/public/sku_images/4524785641105/4524785641105_11_s.jpg", startDate:"〜", isNew:false, url:"https://product.starbucks.co.jp/beverage/" },
@@ -125,12 +126,12 @@ const PRODUCTS = [
   { id:14, chainId:"starbucks", name:"煎茶抹茶 グリーン ティー スパークリング",   category:"ドリンク", price:"¥730",  img:"https://asset.menu.starbucks.co.jp/public/sku_images/4524785633650/4524785633650_11_s.jpg", startDate:"〜", isNew:false, url:"https://product.starbucks.co.jp/beverage/", note:"限定店舗" },
 
   // ── 吉野家 ───────────────────────────────────────────────
-  { id:15, chainId:"yoshinoya", name:"麦とろ牛皿御膳",        category:"定食",           price:"¥853",   img:YOS+"2026/05/25172748/5124106362e8543f6634eb1ccc568e59-400x400.jpg", startDate:"〜", isNew:false, url:"https://www.yoshinoya.com/menu/set/mugitoro_gyusara_tei/" },
-  { id:16, chainId:"yoshinoya", name:"とろろおくら牛丼",      category:"丼",             price:"¥792",   img:YOS+"2026/05/25172749/6e538ab8826aae661379b0dec165b0b5-400x400.jpg", startDate:"〜", isNew:false, url:"https://www.yoshinoya.com/menu/gyudon/tororookura-gyu-don/" },
+  { id:15, chainId:"yoshinoya", name:"麦とろ牛皿御膳",        category:"定食",           price:"¥853",   img:YOS+"2026/05/25172748/5124106362e8543f6634eb1ccc568e59-400x400.jpg", startDate:"〜", isNew:true,  url:"https://www.yoshinoya.com/menu/set/mugitoro_gyusara_tei/" },
+  { id:16, chainId:"yoshinoya", name:"とろろおくら牛丼",      category:"丼",             price:"¥792",   img:YOS+"2026/05/25172749/6e538ab8826aae661379b0dec165b0b5-400x400.jpg", startDate:"〜", isNew:true,  url:"https://www.yoshinoya.com/menu/gyudon/tororookura-gyu-don/" },
   { id:17, chainId:"yoshinoya", name:"絶品牛重",              category:"丼",             price:"¥1,207", img:YOS+"2026/04/21185514/12e8455283cf2bc0ca66e9d6ae055758-400x400.jpg", startDate:"〜", isNew:false, url:"https://www.yoshinoya.com/menu/gyudon/zeppin-gyujyu/" },
   { id:18, chainId:"yoshinoya", name:"牛ほっけ定食",          category:"定食",           price:"¥899",   img:YOS+"2026/04/21191928/c330f6ac07ff8b68e6bcbb3452203325-400x400.jpg", startDate:"〜", isNew:false, url:"https://www.yoshinoya.com/menu/set/gyuhokke-tei/" },
   { id:19, chainId:"yoshinoya", name:"焦がしねぎ焼き鳥丼",    category:"丼",             price:"¥611",   img:YOS+"2023/04/04172057/f90747979546f7f93ea398da7f461d77-400x400.jpg", startDate:"〜", isNew:false, url:"https://www.yoshinoya.com/menu/yoshinoyanodon/kogashinegi_yakitori_don/" },
-  { id:20, chainId:"yoshinoya", name:"冷汁",                  category:"サイドメニュー", price:"¥250",   img:YOS+"2026/05/25172745/390d87b26637b99201d3faa1ea30a6de-400x400.jpg", startDate:"〜", isNew:false, url:"https://www.yoshinoya.com/menu/sidemenu/hiyajiru/" },
+  { id:20, chainId:"yoshinoya", name:"冷汁",                  category:"サイドメニュー", price:"¥250",   img:YOS+"2026/05/25172745/390d87b26637b99201d3faa1ea30a6de-400x400.jpg", startDate:"〜", isNew:true,  url:"https://www.yoshinoya.com/menu/sidemenu/hiyajiru/" },
   { id:93, chainId:"yoshinoya", name:"とろろおくら",          category:"サイドメニュー", price:"¥294",   img:YOS+"2026/05/25172747/1c0cb095472796509ae3fe20480cbc0d-400x400.jpg", startDate:"〜", isNew:true,  url:"https://www.yoshinoya.com/menu/sidemenu/tororookura/" },
 
   // ── すき家 ───────────────────────────────────────────────
@@ -140,9 +141,13 @@ const PRODUCTS = [
   { id:24, chainId:"sukiya", name:"めかぶオクラ牛丼",      category:"丼",       price:"〜",     img:"https://www.sukiya.jp/menu/img/in/photo_gyudon_114600.jpg", startDate:"5/19〜", isNew:false, url:"https://www.sukiya.jp/news/" },
 
   // ── 松屋 ─────────────────────────────────────────────────
-  { id:94, chainId:"matsuya", name:"創業ビーフ牛タンカレー",   category:"カレー", price:"¥980",  img:MAT+"cry_s_beef_gyuutan_hp_s_260324.jpg",    startDate:"3/24〜", isNew:false, url:"https://www.matsuyafoods.co.jp/matsuya/menu/limited/index.html" },
-  { id:95, chainId:"matsuya", name:"炙りマヨ辣鶏めし",        category:"丼",     price:"¥680〜", img:MAT+"don_mayora_torimeshi_hp_s_260306.jpg",  startDate:"3/6〜",  isNew:false, url:"https://www.matsuyafoods.co.jp/matsuya/menu/limited/index.html" },
-  { id:96, chainId:"matsuya", name:"鶏めし",                  category:"丼",     price:"¥580〜", img:MAT+"don_torimeshi_hp_s_260303.jpg",         startDate:"3/3〜",  isNew:false, url:"https://www.matsuyafoods.co.jp/matsuya/menu/limited/index.html" },
+  { id:139, chainId:"matsuya", name:"うな丼",                             category:"丼",          price:"¥980",   img:MAT+"don_unadon_hp_s_260623.jpg",              startDate:"6/23〜", isNew:true, url:"https://www.matsuyafoods.co.jp/matsuya/menu/limited/index.html" },
+  { id:140, chainId:"matsuya", name:"ふわたまうな丼",                     category:"丼",          price:"¥1,180", img:MAT+"don_huwatama_hp_s_260623.jpg",            startDate:"6/23〜", isNew:true, url:"https://www.matsuyafoods.co.jp/matsuya/menu/limited/index.html" },
+  { id:141, chainId:"matsuya", name:"うなぎコンボ牛めし",                 category:"丼",          price:"¥1,180", img:MAT+"don_una_comb_hp_s_260623.jpg",            startDate:"6/23〜", isNew:true, url:"https://www.matsuyafoods.co.jp/matsuya/menu/limited/index.html" },
+  { id:142, chainId:"matsuya", name:"参鶏湯風スープ",                     category:"サイドメニュー",price:"¥330",  img:MAT+"side_sangyetang_hp_s_260623.jpg",         startDate:"6/23〜", isNew:true, url:"https://www.matsuyafoods.co.jp/matsuya/menu/limited/index.html" },
+  { id:143, chainId:"matsuya", name:"ネオトマトカレー",                   category:"カレー",      price:"¥680",   img:MAT+"cry_neo_tmt_hp_s_260609.jpg",             startDate:"6/9〜",  isNew:true, url:"https://www.matsuyafoods.co.jp/matsuya/menu/limited/index.html" },
+  { id:144, chainId:"matsuya", name:"ネオトマトごろごろチキンカレー",     category:"カレー",      price:"¥1,050", img:MAT+"cry_neo_tmt_gorochiki_hp_s_260609.jpg",   startDate:"6/9〜",  isNew:true, url:"https://www.matsuyafoods.co.jp/matsuya/menu/limited/index.html" },
+  { id:145, chainId:"matsuya", name:"溢れる3種チーズINデミハンバーグ定食",category:"定食",        price:"¥1,090", img:MAT+"tei_demi_3ch_in_hb_hp_s_260602.jpg",     startDate:"6/2〜",  isNew:true, url:"https://www.matsuyafoods.co.jp/matsuya/menu/limited/index.html" },
 
   // ── KFC ──────────────────────────────────────────────────
   { id:97,  chainId:"kfc", name:"レモン香るパリパリ旨塩チキン",       category:"チキン",       price:"¥340", img:"https://kfc-web.imagewave.pictures/fySga4PXn5PmLpUmkSsdqX", startDate:"〜", isNew:true, url:"https://www.kfc.co.jp/menu/limited" },
@@ -215,11 +220,9 @@ const PRODUCTS = [
   { id:87, chainId:"subway", name:"ダブルチョコクッキー",      category:"スイーツ",     price:"¥250",   img:SUB+"2026/06/b110c7a60facacefe0f5bb543d369da862b872e2-thumb-157xauto-5149.png",          startDate:"6/10〜", isNew:true,  url:"https://www.subway.co.jp/menu/sidemenu/" },
 
   // ── ファミリーマート ─────────────────────────────────────────
-  { id:102, chainId:"familymart", name:"赤城 つぶあん練乳氷",                    category:"アイス",       price:"¥158", img:FAM+"3470947.jpg", startDate:"〜", isNew:true,  url:"https://www.family.co.jp/goods/ice/" },
-  { id:103, chainId:"familymart", name:"Afternoon Tea監修 オレンジ&アールグレイのミルクティーアイス", category:"アイス", price:"¥225", img:FAM+"3444603.jpg", startDate:"〜", isNew:true,  url:"https://www.family.co.jp/goods/ice/" },
-  { id:104, chainId:"familymart", name:"赤城 たっぷりソフト カフェラテ",         category:"アイス",       price:"¥328", img:FAM+"3461495.jpg", startDate:"〜", isNew:true,  url:"https://www.family.co.jp/goods/ice/" },
-  { id:105, chainId:"familymart", name:"とろける食感ぎゅっとメロン",              category:"アイス",       price:"¥258", img:FAM+"3443422.jpg", startDate:"〜", isNew:false, url:"https://www.family.co.jp/goods/ice/" },
-  { id:106, chainId:"familymart", name:"明治 ザクット 抹茶",                     category:"アイス",       price:"¥171", img:FAM+"3444634.jpg", startDate:"〜", isNew:false, url:"https://www.family.co.jp/goods/ice/" },
+  { id:147, chainId:"familymart", name:"赤城 チョコもちっと",                    category:"アイス",       price:"¥230", img:FAM+"3443972.jpg", startDate:"〜", isNew:true,  url:"https://www.family.co.jp/goods/ice/3443972.html" },
+  { id:148, chainId:"familymart", name:"和匠の逸品 あずき最中",                  category:"アイス",       price:"¥318", img:FAM+"3463925.jpg", startDate:"〜", isNew:true,  url:"https://www.family.co.jp/goods/ice/" },
+  { id:149, chainId:"familymart", name:"ロッテ ワッフルコーン チョコミント",      category:"アイス",       price:"¥368", img:FAM+"3464342.jpg", startDate:"〜", isNew:true,  url:"https://www.family.co.jp/goods/ice/" },
   { id:110, chainId:"familymart", name:"ファミチキ（和風にんにく醤油味）",       category:"ホットスナック",price:"¥239", img:FAM+"0250184.jpg", startDate:"〜", isNew:true,  url:"https://www.family.co.jp/goods/friedfoods.html" },
 
   // ── ローソン ─────────────────────────────────────────────────
