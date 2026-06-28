@@ -74,14 +74,16 @@ const CHAINS = [
   { id:"subway",     name:"サブウェイ",     color:"#009B3A", bg:"#F0FFF4", grad:"linear-gradient(135deg,#009B3A,#00C851)", emoji:"🥖", url:"https://www.subway.co.jp/menu/sandwich/",                              menuUrl:"https://www.subway.co.jp/menu/",                                                           logo:"https://share.google/images/k9MLMwWj6TkhSQIPW", logoText:"SUBWAY", logoStyle:{maxWidth:"90%", objectFit:"contain", borderRadius:"8px"} },
   { id:"familymart", name:"ファミリーマート", color:"#2d5bab", bg:"#F0F4FF", grad:"linear-gradient(135deg,#1a3d8f,#2d5bab)", emoji:"🏪", url:"https://www.family.co.jp/goods/", menuUrl:"https://www.family.co.jp/goods/", logo:"https://www.family.co.jp/content/dam/img/logo/sp/logo_fm.png" },
   { id:"lawson",     name:"ローソン",         color:"#0033A0", bg:"#F0F5FF", grad:"linear-gradient(135deg,#0033A0,#4169E1)", emoji:"🏪", url:"https://www.lawson.co.jp/recommend/", menuUrl:"https://www.lawson.co.jp/recommend/", logo:"https://www.lawson.co.jp/common2015/img/logo_lawson.png" },
-  { id:"sej",        name:"セブン-イレブン",  color:"#007DC3", bg:"#F0F8FF", grad:"linear-gradient(135deg,#00823E,#E8380D)", emoji:"🏪", url:"https://www.sej.co.jp/products/", menuUrl:"https://www.sej.co.jp/products/", logo:"https://www.sej.co.jp/library/common/rn202304/images/common/img_logo.png" },
+  { id:"sej",          name:"セブン-イレブン",  color:"#007DC3", bg:"#F0F8FF", grad:"linear-gradient(135deg,#00823E,#E8380D)", emoji:"🏪", url:"https://www.sej.co.jp/products/", menuUrl:"https://www.sej.co.jp/products/", logo:"https://www.sej.co.jp/library/common/rn202304/images/common/img_logo.png" },
+  { id:"misterdonut", name:"ミスタードーナツ", color:"#E8380D", bg:"#FFF3F0", grad:"linear-gradient(135deg,#E8380D,#FF6B35)", emoji:"🍩", url:"https://www.misterdonut.jp/m_menu/", menuUrl:"https://www.misterdonut.jp/m_menu/", logo:"https://www.misterdonut.jp/common_2022/images/logo.png" },
+  { id:"komeda",      name:"コメダ珈琲",       color:"#6B4C2A", bg:"#FFF8F2", grad:"linear-gradient(135deg,#6B4C2A,#A0784B)", emoji:"☕", url:"https://www.komeda.co.jp/news/", menuUrl:"https://www.komeda.co.jp/menu/", logo:"https://www.komeda.co.jp/img/logo_header.png" },
 ];
 
 const CHAIN_GROUPS = [
   { label:"バーガー",   ids:["mcdonalds","kfc","burgerking","mosburger","zetteria","subway"], color:"#C8102E", bg:"#FFF0F2" },
   { label:"牛丼・麺",   ids:["yoshinoya","sukiya","matsuya","nakau","marugame"],            color:"#B45309", bg:"#FFFBEB" },
   { label:"ファミレス", ids:["gusto"],                                                      color:"#E65100", bg:"#FFF3E0" },
-  { label:"カフェ",     ids:["starbucks","tullys","saintmarc"],                             color:"#00704A", bg:"#F0FFF8" },
+  { label:"カフェ・スイーツ", ids:["starbucks","tullys","saintmarc","komeda","misterdonut"], color:"#00704A", bg:"#F0FFF8" },
   { label:"コンビニ",   ids:["familymart","lawson","sej"],                                  color:"#0033A0", bg:"#F0F5FF" },
 ];
 
@@ -89,7 +91,7 @@ const CATEGORY_ICONS = {
   "バーガー":"🍔", "サンドイッチ":"🥖", "ドリンク":"🥤", "サイドメニュー":"🍟",
   "定食":"🍱", "丼":"🍜", "カレー":"🍛", "チキン":"🍗", "スイーツ":"🍰",
   "うどん":"🍲", "海鮮丼":"🐟", "冷麺":"🍜", "グリル":"🥩",
-  "アイス":"🍦", "ホットスナック":"🍗",
+  "アイス":"🍦", "ホットスナック":"🍗", "ドーナツ":"🍩", "パイ":"🥧",
 };
 
 const MCD = "https://www.mcdonalds.co.jp/product_images/";
@@ -103,6 +105,9 @@ const SAI = "https://ascii.jp/img/2025/06/20/";
 const FAM = "https://www.family.co.jp/content/dam/family/goods/";
 const LAW = "https://www.lawson.co.jp/recommend/original/detail/img/";
 const SEJ = "https://img-afd.7api-01.dp1.sej.co.jp/item-image/";
+const MSD_D = "https://www.misterdonut.jp/m_menu/donut/images/";
+const MSD_R = "https://www.misterdonut.jp/m_menu/drink/images/";
+const KMD = "https://assets.komeda.co.jp/1/notice/pc_banner/";
 
 const PRODUCTS = [
   // ── マクドナルド ──────────────────────────────────────────
@@ -257,12 +262,32 @@ const PRODUCTS = [
   // ── セブン-イレブン スイーツ ─────────────────────────────────
   { id:137, chainId:"sej", name:"まぜまぜスイーツ 抹茶ラテ わらびもち入り",   category:"スイーツ", price:"¥398", img:"https://www.fashion-press.net/img/news/147213/b7I.jpg", startDate:"6/16〜", isNew:true, url:"https://www.sej.co.jp/products/a/item/115081/" },
   { id:138, chainId:"sej", name:"まぜまぜスイーツ いちごミルク わらびもち入り",category:"スイーツ", price:"¥398", img:"https://www.fashion-press.net/img/news/147213/ok4.jpg", startDate:"6/16〜", isNew:true, url:"https://www.sej.co.jp/products/a/item/115084/" },
+
+  // ── ミスタードーナツ ──────────────────────────────────────
+  { id:150, chainId:"misterdonut", name:"もっちゅりんきなこ",                            category:"ドーナツ", price:"¥216", img:MSD_D+"487/product_1.jpg", startDate:"6/3〜",  isNew:true,  url:"https://www.misterdonut.jp/m_menu/" },
+  { id:151, chainId:"misterdonut", name:"もっちゅりんみたらし",                           category:"ドーナツ", price:"¥226", img:MSD_D+"488/product_1.jpg", startDate:"6/3〜",  isNew:true,  url:"https://www.misterdonut.jp/m_menu/" },
+  { id:152, chainId:"misterdonut", name:"もっちゅりんいちご",                             category:"ドーナツ", price:"¥237", img:MSD_D+"489/product_1.jpg", startDate:"6/3〜",  isNew:true,  url:"https://www.misterdonut.jp/m_menu/" },
+  { id:153, chainId:"misterdonut", name:"シャリもぐヨンジーガムロ マンゴー＆グレープフルーツ", category:"ドリンク", price:"〜",   img:MSD_R+"483/product_1.jpg", startDate:"4/27〜", isNew:false, url:"https://www.misterdonut.jp/m_menu/" },
+  { id:154, chainId:"misterdonut", name:"シャリもぐフォンリービン パイン＆ナタデコ",       category:"ドリンク", price:"〜",   img:MSD_R+"484/product_1.jpg", startDate:"4/27〜", isNew:false, url:"https://www.misterdonut.jp/m_menu/" },
+  { id:155, chainId:"misterdonut", name:"ぷにゅんフングイフルーツティ ピーチ＆ドラゴンフルーツ", category:"ドリンク", price:"¥572", img:MSD_R+"481/product_1.jpg", startDate:"4/1〜",  isNew:false, url:"https://www.misterdonut.jp/m_menu/" },
+  { id:156, chainId:"misterdonut", name:"ぷにゅんフングイフルーツティ パイン＆マンゴー＆パッションフルーツ", category:"ドリンク", price:"¥572", img:MSD_R+"482/product_1.jpg", startDate:"4/1〜", isNew:false, url:"https://www.misterdonut.jp/m_menu/" },
+  { id:157, chainId:"misterdonut", name:"ミートソースとマッシュポテトパイ",               category:"パイ",     price:"¥259", img:MSD_D+"475/product_1.jpg", startDate:"4/1〜",  isNew:false, url:"https://www.misterdonut.jp/m_menu/" },
+  { id:158, chainId:"misterdonut", name:"ホワイトソースのクロックムッシュ風パイ",          category:"パイ",     price:"¥259", img:MSD_D+"476/product_1.jpg", startDate:"4/1〜",  isNew:false, url:"https://www.misterdonut.jp/m_menu/" },
+  { id:159, chainId:"misterdonut", name:"バターチキンカレーパイ",                          category:"パイ",     price:"¥259", img:MSD_D+"477/product_1.jpg", startDate:"4/1〜",  isNew:false, url:"https://www.misterdonut.jp/m_menu/" },
+
+  // ── コメダ珈琲 ───────────────────────────────────────────
+  { id:160, chainId:"komeda", name:"かき氷",                          category:"スイーツ", price:"〜", img:KMD+"eca0176f-712e-4330-b2c4-15cbd6f4d30b.jpg", startDate:"夏季限定", isNew:true,  url:"https://www.komeda.co.jp/news/" },
+  { id:161, chainId:"komeda", name:"コメダのフラッペ〜Kiri〜",         category:"ドリンク", price:"〜", img:KMD+"c07331db-a99e-4235-b720-c653e0d9d91e.jpg", startDate:"〜",     isNew:true,  url:"https://www.komeda.co.jp/news/" },
+  { id:162, chainId:"komeda", name:"カリー祭り",                       category:"カレー",   price:"〜", img:KMD+"438731b1-e5c9-413b-b28b-2d9e5766f637.jpg", startDate:"季節限定", isNew:true,  url:"https://www.komeda.co.jp/news/" },
+  { id:163, chainId:"komeda", name:"台湾ミンチのコメドムバーガー",      category:"バーガー", price:"〜", img:KMD+"3a3ba700-607e-4686-9ed3-7a6150e1d1c9.jpg", startDate:"〜",     isNew:false, url:"https://www.komeda.co.jp/news/" },
+  { id:164, chainId:"komeda", name:"シロノワール ピスタチオ・ルージュ", category:"スイーツ", price:"〜", img:KMD+"6dd5412a-39e3-4ced-8394-51345cd8f2be.jpg", startDate:"〜",     isNew:false, url:"https://www.komeda.co.jp/news/" },
+  { id:165, chainId:"komeda", name:"クラブハリエ監修 ショコラノワール", category:"スイーツ", price:"〜", img:KMD+"c4677131-22e4-402b-9e87-cfcfc3c5a36a.jpg", startDate:"〜",     isNew:false, url:"https://www.komeda.co.jp/news/" },
 ];
 
 const CATEGORY_FILTERS = [
   { label:"すべて",               cats: null },
   { label:"バーガー・サンド",     cats: ["バーガー", "サンドイッチ"] },
-  { label:"アイス・スイーツ・ドリンク", cats: ["ドリンク", "スイーツ", "アイス"] },
+  { label:"アイス・スイーツ・ドリンク", cats: ["ドリンク", "スイーツ", "アイス", "ドーナツ", "パイ"] },
   { label:"スナック・サイドメニュー",   cats: ["ホットスナック", "サイドメニュー", "チキン", "グリル"] },
   { label:"定食・丼・カレー",     cats: ["定食", "丼", "海鮮丼", "カレー"] },
   { label:"麺類",                 cats: ["うどん", "冷麺"] },
