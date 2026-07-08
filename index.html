@@ -251,45 +251,63 @@ const PRODUCTS = [
   { id:87, chainId:"subway", name:"ダブルチョコクッキー",      category:"スイーツ",     price:"¥250",   img:SUB+"2026/06/b110c7a60facacefe0f5bb543d369da862b872e2-thumb-157xauto-5149.png",          startDate:"6/10〜", isNew:true,  url:"https://www.subway.co.jp/menu/sidemenu/" },
 
   // ── ファミリーマート ─────────────────────────────────────────
-  { id:147, chainId:"familymart", name:"赤城 チョコもちっと",                    category:"アイス",       price:"¥230", img:FAM+"3443972.jpg", startDate:"〜", isNew:true,  url:"https://www.family.co.jp/goods/ice/3443972.html" },
-  { id:148, chainId:"familymart", name:"和匠の逸品 あずき最中",                  category:"アイス",       price:"¥318", img:FAM+"3463925.jpg", startDate:"〜", isNew:true,  url:"https://www.family.co.jp/goods/ice/" },
-  { id:149, chainId:"familymart", name:"ロッテ ワッフルコーン チョコミント",      category:"アイス",       price:"¥368", img:FAM+"3464342.jpg", startDate:"〜", isNew:true,  url:"https://www.family.co.jp/goods/ice/" },
-  { id:110, chainId:"familymart", name:"ファミチキ（和風にんにく醤油味）",       category:"ホットスナック",price:"¥239", img:FAM+"0250184.jpg",  startDate:"〜",    isNew:true, url:"https://www.family.co.jp/goods/friedfoods.html" },
-  { id:174, chainId:"familymart", name:"赤城 抹茶ラテ氷",                        category:"アイス",        price:"¥184", img:FAM+"3470985.jpg",  startDate:"6/30〜", isNew:true, url:"https://www.family.co.jp/goods/ice/3470985.html" },
-  { id:175, chainId:"familymart", name:"さっぽろ純連監修 冷し味噌まぜそば",       category:"冷麺",          price:"¥599", img:FAM+"0810494.jpg",  startDate:"6/30〜", isNew:true, url:"https://www.family.co.jp/goods/noodle/0810494.html" },
+  { id:147, chainId:"familymart", name:"赤城 チョコもちっと",                    category:"アイス",       price:"¥230", img:FAM+"3443972.jpg", startDate:"〜", isNew:false,  url:"https://www.family.co.jp/goods/ice/3443972.html" },
+  { id:148, chainId:"familymart", name:"和匠の逸品 あずき最中",                  category:"アイス",       price:"¥318", img:FAM+"3463925.jpg", startDate:"〜", isNew:false,  url:"https://www.family.co.jp/goods/ice/" },
+  { id:149, chainId:"familymart", name:"ロッテ ワッフルコーン チョコミント",      category:"アイス",       price:"¥368", img:FAM+"3464342.jpg", startDate:"〜", isNew:false,  url:"https://www.family.co.jp/goods/ice/" },
+  { id:110, chainId:"familymart", name:"ファミチキ（和風にんにく醤油味）",       category:"ホットスナック",price:"¥239", img:FAM+"0250184.jpg",  startDate:"〜",    isNew:false, url:"https://www.family.co.jp/goods/friedfoods.html" },
+  { id:174, chainId:"familymart", name:"赤城 抹茶ラテ氷",                        category:"アイス",        price:"¥184", img:FAM+"3470985.jpg",  startDate:"6/30〜", isNew:false, url:"https://www.family.co.jp/goods/ice/3470985.html" },
+  { id:175, chainId:"familymart", name:"さっぽろ純連監修 冷し味噌まぜそば",       category:"冷麺",          price:"¥599", img:FAM+"0810494.jpg",  startDate:"6/30〜", isNew:false, url:"https://www.family.co.jp/goods/noodle/0810494.html" },
 
   // ── ローソン ─────────────────────────────────────────────────
   { id:111, chainId:"lawson", name:"ミルクワッフルコーン",                        category:"アイス",       price:"¥322", img:LAW+"l790845.jpg",   startDate:"〜", isNew:false, url:"https://www.lawson.co.jp/recommend/original/select/icecreem/" },
-  { id:112, chainId:"lawson", name:"日本のフルーツ 北海道産メロン",               category:"アイス",       price:"¥279", img:LAW+"l807369_1.jpg", startDate:"〜", isNew:true,  url:"https://www.lawson.co.jp/recommend/original/select/icecreem/" },
-  { id:113, chainId:"lawson", name:"濃蜜みかん氷",                                category:"アイス",       price:"¥257", img:LAW+"l807384.jpg",   startDate:"〜", isNew:true,  url:"https://www.lawson.co.jp/recommend/original/select/icecreem/" },
-  { id:114, chainId:"lawson", name:"森永製菓 ハイチュウアイスバー グレープ",     category:"アイス",       price:"¥184", img:LAW+"l809600.jpg",   startDate:"〜", isNew:true,  url:"https://www.lawson.co.jp/recommend/original/select/icecreem/" },
-  { id:115, chainId:"lawson", name:"明治 北海道あずき 練乳氷",                   category:"アイス",       price:"¥225", img:LAW+"l809631.jpg",   startDate:"〜", isNew:true,  url:"https://www.lawson.co.jp/recommend/original/select/icecreem/" },
-  { id:117, chainId:"lawson", name:"でからあげクン 夢のMIX味",                   category:"ホットスナック",price:"¥288", img:LAW+"l799721_2.jpg", startDate:"〜", isNew:true,  url:"https://www.lawson.co.jp/recommend/original/fry/" },
+  { id:112, chainId:"lawson", name:"日本のフルーツ 北海道産メロン",               category:"アイス",       price:"¥279", img:LAW+"l807369_1.jpg", startDate:"〜", isNew:false,  url:"https://www.lawson.co.jp/recommend/original/select/icecreem/" },
+  { id:113, chainId:"lawson", name:"濃蜜みかん氷",                                category:"アイス",       price:"¥257", img:LAW+"l807384.jpg",   startDate:"〜", isNew:false,  url:"https://www.lawson.co.jp/recommend/original/select/icecreem/" },
+  { id:114, chainId:"lawson", name:"森永製菓 ハイチュウアイスバー グレープ",     category:"アイス",       price:"¥184", img:LAW+"l809600.jpg",   startDate:"〜", isNew:false,  url:"https://www.lawson.co.jp/recommend/original/select/icecreem/" },
+  { id:115, chainId:"lawson", name:"明治 北海道あずき 練乳氷",                   category:"アイス",       price:"¥225", img:LAW+"l809631.jpg",   startDate:"〜", isNew:false,  url:"https://www.lawson.co.jp/recommend/original/select/icecreem/" },
+  { id:117, chainId:"lawson", name:"でからあげクン 夢のMIX味",                   category:"ホットスナック",price:"¥288", img:LAW+"l799721_2.jpg", startDate:"〜", isNew:false,  url:"https://www.lawson.co.jp/recommend/original/fry/" },
 
   // ── セブン-イレブン ──────────────────────────────────────────
-  { id:120, chainId:"sej", name:"井村屋 いちごあめアイスバー",                   category:"アイス",       price:"¥150", img:SEJ+"450184/38AA42583C0AA81FF69A582CF23F5AC8.jpg", startDate:"〜", isNew:true,  url:"https://www.sej.co.jp/products/a/ice_cream/" },
-  { id:121, chainId:"sej", name:"ロッテ ひと夏の黄色いスイカバー",               category:"アイス",       price:"¥130", img:SEJ+"450284/EC1FC823C27C4F0630A612C707C9592D.jpg", startDate:"〜", isNew:true,  url:"https://www.sej.co.jp/products/a/ice_cream/" },
-  { id:122, chainId:"sej", name:"７プレミアム まるで完熟白桃",                   category:"アイス",       price:"¥158", img:SEJ+"450527/2EEAC8841406B4EC003436EAF214CFFE.jpg", startDate:"〜", isNew:true,  url:"https://www.sej.co.jp/products/a/ice_cream/" },
+  { id:120, chainId:"sej", name:"井村屋 いちごあめアイスバー",                   category:"アイス",       price:"¥150", img:SEJ+"450184/38AA42583C0AA81FF69A582CF23F5AC8.jpg", startDate:"〜", isNew:false,  url:"https://www.sej.co.jp/products/a/ice_cream/" },
+  { id:121, chainId:"sej", name:"ロッテ ひと夏の黄色いスイカバー",               category:"アイス",       price:"¥130", img:SEJ+"450284/EC1FC823C27C4F0630A612C707C9592D.jpg", startDate:"〜", isNew:false,  url:"https://www.sej.co.jp/products/a/ice_cream/" },
+  { id:122, chainId:"sej", name:"７プレミアム まるで完熟白桃",                   category:"アイス",       price:"¥158", img:SEJ+"450527/2EEAC8841406B4EC003436EAF214CFFE.jpg", startDate:"〜", isNew:false,  url:"https://www.sej.co.jp/products/a/ice_cream/" },
   { id:123, chainId:"sej", name:"大山 白バラアイスキャンディー ミルク",          category:"アイス",       price:"¥128", img:SEJ+"450452/B60455C697B1BD79C7288CDC3C55D26C.jpg", startDate:"〜", isNew:false, url:"https://www.sej.co.jp/products/a/ice_cream/" },
   { id:124, chainId:"sej", name:"森永製菓 パリパリバーバニラ",                   category:"アイス",       price:"¥170", img:SEJ+"450394/CAB710EECEA7A4D03463A32ED9B84E9B.jpg", startDate:"〜", isNew:false, url:"https://www.sej.co.jp/products/a/ice_cream/" },
-  { id:127, chainId:"sej", name:"ほくじゃが牛肉コロッケ（塩胡椒）",             category:"ホットスナック",price:"¥119", img:SEJ+"150742/70971DDD2A034B8D1C4701BA3AB14671.jpg", startDate:"〜", isNew:true,  url:"https://www.sej.co.jp/products/a/hotsnack/" },
+  { id:127, chainId:"sej", name:"ほくじゃが牛肉コロッケ（塩胡椒）",             category:"ホットスナック",price:"¥119", img:SEJ+"150742/70971DDD2A034B8D1C4701BA3AB14671.jpg", startDate:"〜", isNew:false,  url:"https://www.sej.co.jp/products/a/hotsnack/" },
 
   // ── ファミリーマート スイーツ ────────────────────────────────
-  { id:128, chainId:"familymart", name:"ミルクレープロール（チョコ）",                                        category:"スイーツ", price:"¥263", img:FAM+"1940084.jpg",  startDate:"〜",   isNew:true,  url:"https://www.family.co.jp/goods/dessert.html" },
-  { id:129, chainId:"familymart", name:"宇治抹茶のクリームタルト",                                           category:"スイーツ", price:"¥278", img:FAM+"1944129.jpg",  startDate:"〜",   isNew:true,  url:"https://www.family.co.jp/goods/dessert.html" },
-  { id:130, chainId:"familymart", name:"【Afternoon Tea監修】窯出しとろけるミルクティープリン",              category:"スイーツ", price:"¥238", img:FAM+"1945119.jpg",  startDate:"〜",   isNew:true,  url:"https://www.family.co.jp/goods/dessert.html" },
-  { id:131, chainId:"familymart", name:"【Afternoon Tea監修】アールグレイ香るクリスピー紅茶サンド",         category:"スイーツ", price:"¥298", img:FAM+"1944112.jpg",  startDate:"〜",   isNew:true,  url:"https://www.family.co.jp/goods/dessert.html" },
+  { id:128, chainId:"familymart", name:"ミルクレープロール（チョコ）",                                        category:"スイーツ", price:"¥263", img:FAM+"1940084.jpg",  startDate:"〜",   isNew:false,  url:"https://www.family.co.jp/goods/dessert.html" },
+  { id:129, chainId:"familymart", name:"宇治抹茶のクリームタルト",                                           category:"スイーツ", price:"¥278", img:FAM+"1944129.jpg",  startDate:"〜",   isNew:false,  url:"https://www.family.co.jp/goods/dessert.html" },
+  { id:130, chainId:"familymart", name:"【Afternoon Tea監修】窯出しとろけるミルクティープリン",              category:"スイーツ", price:"¥238", img:FAM+"1945119.jpg",  startDate:"〜",   isNew:false,  url:"https://www.family.co.jp/goods/dessert.html" },
+  { id:131, chainId:"familymart", name:"【Afternoon Tea監修】アールグレイ香るクリスピー紅茶サンド",         category:"スイーツ", price:"¥298", img:FAM+"1944112.jpg",  startDate:"〜",   isNew:false,  url:"https://www.family.co.jp/goods/dessert.html" },
+  { id:197, chainId:"familymart", name:"SPAM®むすび ツナマヨネーズ", category:"おにぎり", price:"¥276", img:"https://www.family.co.jp/content/dam/family/company/news_releases/2026/2026fm_hawai_spammusubi.jpg", startDate:"7/7〜", isNew:true, url:"https://www.family.co.jp/company/news_releases/2026/20260707_01.html" },
+  { id:198, chainId:"familymart", name:"SPAM®むすび ダブル玉子", category:"おにぎり", price:"¥369", img:"https://www.family.co.jp/content/dam/family/company/news_releases/2026/2026fm_hawai_spamtamago.jpg", startDate:"7/7〜", isNew:true, url:"https://www.family.co.jp/company/news_releases/2026/20260707_01.html" },
+  { id:199, chainId:"familymart", name:"ハンバーグロコモコ（グレイビーソース仕立て）", category:"弁当", price:"¥647", img:"https://www.family.co.jp/content/dam/family/company/news_releases/2026/2026fm_hawai_rokomoko.jpg", startDate:"7/7〜", isNew:true, url:"https://www.family.co.jp/company/news_releases/2026/20260707_01.html" },
+  { id:200, chainId:"familymart", name:"殻までおいしいガーリックシュリンプ", category:"ホットスナック", price:"¥406", img:"https://www.family.co.jp/content/dam/family/company/news_releases/2026/2026fm_hawai_ga-rikkusyurinp.jpg", startDate:"7/7〜", isNew:true, url:"https://www.family.co.jp/company/news_releases/2026/20260707_01.html" },
+  { id:201, chainId:"familymart", name:"チョコマラサダ（マカダミアホイップ）", category:"スイーツ", price:"¥147", img:"https://www.family.co.jp/content/dam/family/company/news_releases/2026/2026fm_hawai_marasada.jpg", startDate:"7/7〜", isNew:true, url:"https://www.family.co.jp/company/news_releases/2026/20260707_01.html" },
+  { id:202, chainId:"familymart", name:"ハワイアンホースト マカダミアナッツチョコエクレア", category:"スイーツ", price:"¥237", img:"https://www.family.co.jp/content/dam/family/company/news_releases/2026/2026fm_hawai_ekurea.jpg", startDate:"7/7〜", isNew:true, url:"https://www.family.co.jp/company/news_releases/2026/20260707_01.html" },
+  { id:203, chainId:"familymart", name:"ハワイアンホースト マカダミアナッツチョコレートアイス", category:"アイス", price:"¥267", img:"https://www.family.co.jp/content/dam/family/company/news_releases/2026/2026fm_hawai_cyokoaisu.jpg", startDate:"7/7〜", isNew:true, url:"https://www.family.co.jp/company/news_releases/2026/20260707_01.html" },
 
   // ── ローソン スイーツ ───────────────────────────────────────
-  { id:132, chainId:"lawson", name:"盛りすぎ！くちどけショコラクレープ",  category:"スイーツ", price:"¥265", img:LAW+"l1528997_1996.jpg", startDate:"6/23〜", isNew:true,  url:"https://www.lawson.co.jp/recommend/original/dessert/" },
-  { id:133, chainId:"lawson", name:"どらもっち ティラミス",               category:"スイーツ", price:"¥257", img:LAW+"l1528995_1996.jpg", startDate:"6/23〜", isNew:true,  url:"https://www.lawson.co.jp/recommend/original/dessert/" },
-  { id:134, chainId:"lawson", name:"ふわしゅわチーズスフレ",              category:"スイーツ", price:"¥203", img:LAW+"l1528994_1996.jpg", startDate:"6/23〜", isNew:true,  url:"https://www.lawson.co.jp/recommend/original/dessert/" },
-  { id:135, chainId:"lawson", name:"しっとりビスケットサンド レアチーズ", category:"スイーツ", price:"¥297", img:LAW+"l1528796_1996.jpg", startDate:"〜",    isNew:true,  url:"https://www.lawson.co.jp/recommend/original/dessert/" },
-  { id:136, chainId:"lawson", name:"ふわ生2層のチーズタルト",             category:"スイーツ", price:"¥275", img:LAW+"l1528795_1996.jpg", startDate:"〜",    isNew:true,  url:"https://www.lawson.co.jp/recommend/original/dessert/" },
+  { id:132, chainId:"lawson", name:"盛りすぎ！くちどけショコラクレープ",  category:"スイーツ", price:"¥265", img:LAW+"l1528997_1996.jpg", startDate:"6/23〜", isNew:false,  url:"https://www.lawson.co.jp/recommend/original/dessert/" },
+  { id:133, chainId:"lawson", name:"どらもっち ティラミス",               category:"スイーツ", price:"¥257", img:LAW+"l1528995_1996.jpg", startDate:"6/23〜", isNew:false,  url:"https://www.lawson.co.jp/recommend/original/dessert/" },
+  { id:134, chainId:"lawson", name:"ふわしゅわチーズスフレ",              category:"スイーツ", price:"¥203", img:LAW+"l1528994_1996.jpg", startDate:"6/23〜", isNew:false,  url:"https://www.lawson.co.jp/recommend/original/dessert/" },
+  { id:135, chainId:"lawson", name:"しっとりビスケットサンド レアチーズ", category:"スイーツ", price:"¥297", img:LAW+"l1528796_1996.jpg", startDate:"〜",    isNew:false,  url:"https://www.lawson.co.jp/recommend/original/dessert/" },
+  { id:136, chainId:"lawson", name:"ふわ生2層のチーズタルト",             category:"スイーツ", price:"¥275", img:LAW+"l1528795_1996.jpg", startDate:"〜",    isNew:false,  url:"https://www.lawson.co.jp/recommend/original/dessert/" },
+  { id:204, chainId:"lawson", name:"チョコミントワッフルコーン", category:"アイス", price:"¥365", img:LAW+"l811921.png", startDate:"7/7〜", isNew:true, url:"https://www.lawson.co.jp/recommend/original/select/icecreem/" },
+  { id:205, chainId:"lawson", name:"ごろっと1/2個分！桃のタルト", category:"スイーツ", price:"¥362", img:LAW+"l813743.png", startDate:"7/7〜", isNew:true, url:"https://www.lawson.co.jp/recommend/original/dessert/" },
+  { id:206, chainId:"lawson", name:"ごろごろとした桃のシュー", category:"スイーツ", price:"¥248", img:LAW+"l813246.jpg", startDate:"7/7〜", isNew:true, url:"https://www.lawson.co.jp/recommend/original/dessert/" },
+  { id:207, chainId:"lawson", name:"泡ピーチゼリー", category:"スイーツ", price:"¥300", img:LAW+"l814243.jpg", startDate:"7/7〜", isNew:true, url:"https://www.lawson.co.jp/recommend/original/dessert/" },
+  { id:208, chainId:"lawson", name:"オールスター海苔弁当", category:"弁当", price:"¥646", img:LAW+"l810540.png", startDate:"7/7〜", isNew:true, url:"https://www.lawson.co.jp/recommend/original/bento/" },
+  { id:209, chainId:"lawson", name:"豆板醤が決め手！海老チリチャーハン", category:"弁当", price:"¥646", img:LAW+"l813210.jpg", startDate:"7/7〜", isNew:true, url:"https://www.lawson.co.jp/recommend/original/bento/" },
 
   // ── セブン-イレブン スイーツ ─────────────────────────────────
-  { id:137, chainId:"sej", name:"まぜまぜスイーツ 抹茶ラテ わらびもち入り",   category:"スイーツ", price:"¥398", img:"https://www.fashion-press.net/img/news/147213/b7I.jpg", startDate:"6/16〜", isNew:true, url:"https://www.sej.co.jp/products/a/item/115081/" },
-  { id:138, chainId:"sej", name:"まぜまぜスイーツ いちごミルク わらびもち入り",category:"スイーツ", price:"¥398", img:"https://www.fashion-press.net/img/news/147213/ok4.jpg", startDate:"6/16〜", isNew:true, url:"https://www.sej.co.jp/products/a/item/115084/" },
+  { id:137, chainId:"sej", name:"まぜまぜスイーツ 抹茶ラテ わらびもち入り",   category:"スイーツ", price:"¥398", img:"https://www.fashion-press.net/img/news/147213/b7I.jpg", startDate:"6/16〜", isNew:false, url:"https://www.sej.co.jp/products/a/item/115081/" },
+  { id:138, chainId:"sej", name:"まぜまぜスイーツ いちごミルク わらびもち入り",category:"スイーツ", price:"¥398", img:"https://www.fashion-press.net/img/news/147213/ok4.jpg", startDate:"6/16〜", isNew:false, url:"https://www.sej.co.jp/products/a/item/115084/" },
+  { id:210, chainId:"sej", name:"ぷちもち食感！もち麦おむすび 塩こんぶ枝豆", category:"おにぎり", price:"¥138", img:SEJ+"043605/755845AF9AB7C0C863B774B44311C6F7.jpg", startDate:"7/7〜", isNew:true, url:"https://www.sej.co.jp/products/a/item/043605/" },
+  { id:211, chainId:"sej", name:"ぷちもち食感！もち麦おむすび 梅ひじき", category:"おにぎり", price:"¥138", img:SEJ+"043606/CFA09685F4521F0FB5CBD2762F3C59FE.jpg", startDate:"7/7〜", isNew:true, url:"https://www.sej.co.jp/products/a/item/043606/" },
+  { id:212, chainId:"sej", name:"炙り焼きハラスとだしごはん（もち麦）", category:"弁当", price:"¥430", img:SEJ+"043599/02F15E71D6579F8639548C13DF98341E.jpg", startDate:"7/7〜", isNew:true, url:"https://www.sej.co.jp/products/a/item/043599/" },
+  { id:213, chainId:"sej", name:"熟成だれの牛カルビ弁当", category:"弁当", price:"¥620", img:SEJ+"043619/B083CC6B570A6F26E2658141CB388E1A.jpg", startDate:"7/7〜", isNew:true, url:"https://www.sej.co.jp/products/a/item/043619/" },
+  { id:214, chainId:"sej", name:"CAFE BOX 温玉ビビンバ（もち麦）", category:"丼", price:"¥648", img:SEJ+"043612/7B0CD0A62116238DDFB97742F4C78089.jpg", startDate:"7/7〜", isNew:true, url:"https://www.sej.co.jp/products/a/item/043612/" },
 
   // ── ミスタードーナツ ──────────────────────────────────────
   { id:150, chainId:"misterdonut", name:"もっちゅりんきなこ",                            category:"ドーナツ", price:"¥216", img:MSD_D+"487/product_1.jpg", startDate:"6/3〜",  isNew:true,  url:"https://www.misterdonut.jp/m_menu/" },
@@ -318,6 +336,7 @@ const CATEGORY_FILTERS = [
   { label:"スナック・サイドメニュー",   cats: ["ホットスナック", "サイドメニュー", "チキン", "グリル"] },
   { label:"定食・丼・カレー",     cats: ["定食", "丼", "海鮮丼", "カレー"] },
   { label:"麺類",                 cats: ["うどん", "冷麺"] },
+  { label:"おにぎり・弁当",       cats: ["おにぎり", "弁当"] },
 ];
 const chainMap = Object.fromEntries(CHAINS.map(c => [c.id, c]));
 
@@ -764,7 +783,7 @@ function App() {
 
           <div style=${{padding:"16px", textAlign:"center"}}>
             <div style=${{fontSize:12, color:"#CBD5E0"}}>
-              各チェーン公式サイトより取得 • データ取得: 2026年6月7日
+              各チェーン公式サイトより取得 • データ取得: 2026年7月8日
             </div>
           </div>
           <div style=${{position:"fixed", bottom:20, left:"50%", transform:"translateX(-50%)", zIndex:100}}>
