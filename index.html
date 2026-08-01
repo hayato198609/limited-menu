@@ -112,18 +112,14 @@ const KMD = "https://assets.komeda.co.jp/1/notice/pc_banner/";
 const PRODUCTS = [
   // ── マクドナルド ──────────────────────────────────────────
   { id:4,  chainId:"mcdonalds", name:"スパイシーチキンマックナゲット",            category:"サイドメニュー",price:"¥290〜",     img:MCD+"3622/1686.png",   startDate:"5/27〜", isNew:false, url:"https://www.mcdonalds.co.jp/campaign/spicynuggets/" },
-  { id:5,  chainId:"mcdonalds", name:"もものスムージー",                         category:"ドリンク",      price:"¥490〜",     img:MCD+"3635/3849.png",   startDate:"5/27〜", isNew:false, url:"https://www.mcdonalds.co.jp/campaign/peach-series/" },
-  { id:6,  chainId:"mcdonalds", name:"マスカットスムージー",                     category:"ドリンク",      price:"¥470〜",     img:MCD+"3634/3845.png",   startDate:"5/27〜", isNew:false, url:"https://www.mcdonalds.co.jp/campaign/peach-series/" },
   { id:8,  chainId:"mcdonalds", name:"グランドフライ",                           category:"サイドメニュー",price:"¥490〜",     img:MCD+"3595/2056.m.png", startDate:"〜",     isNew:false, url:"https://www.mcdonalds.co.jp/campaign/fifa-wc/" },
-  { id:88, chainId:"mcdonalds", name:"ザク切りポテト&肉厚ビーフ コク旨ガーリックペッパー", category:"バーガー",      price:"¥580〜", img:MCD2+"36559/file.png", startDate:"6/17〜", isNew:true,  url:"https://www.mcdonalds.co.jp/campaign/fifa-wc/" },
-  { id:89, chainId:"mcdonalds", name:"メキシカンタコスチーズチキン",              category:"バーガー",      price:"¥490〜", img:MCD2+"36560/file.png", startDate:"6/17〜", isNew:true,  url:"https://www.mcdonalds.co.jp/campaign/fifa-wc/" },
-  { id:90, chainId:"mcdonalds", name:"アボカドマヨチーズシュリンプ",             category:"バーガー",      price:"¥490〜", img:MCD2+"36561/file.png", startDate:"6/17〜", isNew:true,  url:"https://www.mcdonalds.co.jp/campaign/fifa-wc/" },
-  { id:91, chainId:"mcdonalds", name:"シャカシャカポテト® ガーリックステーキ味", category:"サイドメニュー",price:"¥50〜(追加)", img:MCD2+"36564/file.png", startDate:"6/17〜", isNew:true,  url:"https://www.mcdonalds.co.jp/campaign/fifa-wc/" },
-  { id:92, chainId:"mcdonalds", name:"マックフィズ® ブルーエナジー",             category:"ドリンク",      price:"¥300〜", img:MCD2+"36565/file.png", startDate:"6/17〜", isNew:true,  url:"https://www.mcdonalds.co.jp/campaign/fifa-wc/" },
-  { id:146, chainId:"mcdonalds", name:"マックフロート® ブルーエナジー",           category:"ドリンク",      price:"¥380〜", img:MCD2+"36566/file.png", startDate:"6/17〜", isNew:true,  url:"https://www.mcdonalds.co.jp/campaign/fifa-wc/" },
   { id:215, chainId:"mcdonalds", name:"マックフルーリー® チョコボール",    category:"アイス",   price:"￥370～", img:"https://www.mcdonalds.co.jp/media_library/37193/file.png", startDate:"7/15～", isNew:true, url:"https://www.mcdonalds.co.jp/campaign/" },
   { id:216, chainId:"mcdonalds", name:"マックシェイク® 森永ラムネ",        category:"ドリンク", price:"￥190～", img:"https://www.mcdonalds.co.jp/media_library/37194/file.png", startDate:"7/15～", isNew:true, url:"https://www.mcdonalds.co.jp/campaign/" },
   { id:217, chainId:"mcdonalds", name:"森永ミルクキャラメルパイ",          category:"スイーツ", price:"￥200～", img:"https://www.mcdonalds.co.jp/media_library/37195/file.png", startDate:"7/15～", isNew:true, url:"https://www.mcdonalds.co.jp/campaign/" },
+  { id:271, chainId:"mcdonalds", name:"タルタルデミ肉厚ビーフ", category:"バーガー", price:"¥580", img:"https://www.mcdonalds.co.jp/product_images/3748/1200.png", startDate:"7/22～", isNew:true, url:"https://www.mcdonalds.co.jp/products/6400/" },
+  { id:272, chainId:"mcdonalds", name:"ジューシーチキン 旨辛ガーリック", category:"バーガー", price:"¥490", img:"https://www.mcdonalds.co.jp/product_images/3722/1201.png", startDate:"7/22～", isNew:true, url:"https://www.mcdonalds.co.jp/products/6410/" },
+  { id:273, chainId:"mcdonalds", name:"焙煎ごまタルタルシュリンプ", category:"バーガー", price:"¥490", img:"https://www.mcdonalds.co.jp/product_images/3724/1202.png", startDate:"7/22～", isNew:true, url:"https://www.mcdonalds.co.jp/products/6420/" },
+  { id:274, chainId:"mcdonalds", name:"チーズベーコンポテトパイ", category:"スイーツ", price:"¥190", img:"https://www.mcdonalds.co.jp/media_library/31481/file.png", startDate:"7/29～", isNew:true, url:"https://www.mcdonalds.co.jp/campaign/cheese-bpp/" },
 
   // ── スターバックス ────────────────────────────────────────
   { id:9,  chainId:"starbucks", name:"バナナ アフォガート フラペチーノ®",        category:"ドリンク", price:"¥700",   img:"https://asset.menu.starbucks.co.jp/public/sku_images/4524785641105/4524785641105_11_s.jpg", startDate:"〜", isNew:false, url:"https://product.starbucks.co.jp/beverage/" },
@@ -132,11 +128,10 @@ const PRODUCTS = [
   { id:12, chainId:"starbucks", name:"チラックス ソーダ ゆずシトラス",           category:"ドリンク", price:"¥590〜", img:"https://asset.menu.starbucks.co.jp/public/sku_images/4524785584655/4524785584655_11_s.jpg", startDate:"〜", isNew:false, url:"https://product.starbucks.co.jp/beverage/" },
   { id:13, chainId:"starbucks", name:"煎茶抹茶 ティー フラペチーノ® わらび餅入り",category:"ドリンク",price:"¥820",   img:"https://asset.menu.starbucks.co.jp/public/sku_images/4524785633643/4524785633643_11_s.jpg", startDate:"〜", isNew:false, url:"https://product.starbucks.co.jp/beverage/", note:"限定店舗" },
   { id:14, chainId:"starbucks", name:"煎茶抹茶 グリーン ティー スパークリング",   category:"ドリンク", price:"¥730",  img:"https://asset.menu.starbucks.co.jp/public/sku_images/4524785633650/4524785633650_11_s.jpg", startDate:"〜", isNew:false, url:"https://product.starbucks.co.jp/beverage/", note:"限定店舗" },
-  { id:188, chainId:"starbucks", name:"ピーチ & ピーチミルク フラペチーノ®",      category:"ドリンク", price:"¥707〜", img:"https://stories.starbucks.co.jp/uploads/sites/30/2026/06/Peach_frp.jpg",                    startDate:"6/24〜", isNew:true,  url:"https://product.starbucks.co.jp/beverage/" },
-  { id:189, chainId:"starbucks", name:"チラックス ソーダ ピーチ",                 category:"ドリンク", price:"¥579〜", img:"https://stories.starbucks.co.jp/uploads/sites/30/2026/06/Peach_soda.jpg",                   startDate:"6/24〜", isNew:true,  url:"https://product.starbucks.co.jp/beverage/" },
-  { id:190, chainId:"starbucks", name:"クラフト ジューシー ピーチ ティー",        category:"ドリンク", price:"¥618〜", img:"https://stories.starbucks.co.jp/uploads/sites/30/2026/06/Peach_tea.jpg",                    startDate:"6/24〜", isNew:true,  url:"https://product.starbucks.co.jp/beverage/" },
-  { id:191, chainId:"starbucks", name:"白桃&アールグレイタルト",                  category:"スイーツ", price:"¥570〜", img:"https://stories.starbucks.co.jp/uploads/sites/30/2026/06/WhitePeach_EGTart-1-scaled.jpg", startDate:"6/24〜", isNew:true,  url:"https://product.starbucks.co.jp/beverage/" },
   { id:218, chainId:"starbucks", name:"ピーチ クリーミー ティー ラテ",     category:"ドリンク", price:"￥668～", img:"https://img-mdpr.freetls.fastly.net/article/UXbR/nm/UXbRFGSENLt3Xlo0LQ-LyqI78201awlrTLMWfTW0Hbc.jpg", startDate:"7/10～", isNew:true, url:"https://product.starbucks.co.jp/beverage/" },
+  { id:275, chainId:"starbucks", name:"ぎゅぎゅっと オレンジ ＆ マンゴー フラペチーノ®", category:"ドリンク", price:"¥720", img:"https://stories.starbucks.co.jp/uploads/sites/30/2026/07/260707_FY26_wave3_1_orangeF_PR_1M_01.jpg", startDate:"7/22～", isNew:true, url:"https://stories.starbucks.co.jp/press/2026/pr-2026-07-15/" },
+  { id:276, chainId:"starbucks", name:"チラックス ソーダ オレンジ ＆ マンゴー", category:"ドリンク", price:"¥590", img:"https://stories.starbucks.co.jp/uploads/sites/30/2026/07/260706_FY26_wave3_2_orangeChill_PR_1M_01.jpg", startDate:"7/22～", isNew:true, url:"https://stories.starbucks.co.jp/press/2026/pr-2026-07-15/" },
+  { id:277, chainId:"starbucks", name:"クラフト ジューシー オレンジ ＆ マンゴー ティー", category:"ドリンク", price:"¥630", img:"https://stories.starbucks.co.jp/uploads/sites/30/2026/07/260706_FY26_wave3_3_orangeTEA_PR_1M_01.jpg", startDate:"7/22～", isNew:true, url:"https://stories.starbucks.co.jp/press/2026/pr-2026-07-15/" },
 
   // ── 吉野家 ───────────────────────────────────────────────
   { id:15, chainId:"yoshinoya", name:"麦とろ牛皿御膳",        category:"定食",           price:"¥853",   img:YOS+"2026/05/25172748/5124106362e8543f6634eb1ccc568e59-400x400.jpg", startDate:"〜", isNew:true,  url:"https://www.yoshinoya.com/menu/set/mugitoro_gyusara_tei/" },
@@ -149,6 +144,7 @@ const PRODUCTS = [
   { id:168, chainId:"yoshinoya", name:"ほっけ定食",               category:"定食",           price:"¥718",   img:YOS+"2026/04/21191759/e41c115ae70e52592bb1a1537874d66c-400x400.jpg", startDate:"〜", isNew:false, url:"https://www.yoshinoya.com/menu/gentei" },
         { id:248, chainId:"yoshinoya", name:"牛鉄板スタミナ焼肉定食", category:"定食", price:"¥954", img:"https://www.yoshinoya.com/wp-content/uploads/2026/07/06122344/571fb797f8e6c2fc9171d66a931a525e.jpg", startDate:"7/16～", isNew:true, url:"https://www.yoshinoya.com/menu/set/gyuteppan-stamina-yakiniku-tei/" },
         { id:249, chainId:"yoshinoya", name:"牛スタミナ焼肉丼", category:"丼", price:"¥718", img:"https://www.yoshinoya.com/wp-content/uploads/2026/07/06122402/073054d130899bdd093014337eace5a6.jpg", startDate:"7/16～", isNew:true, url:"https://www.yoshinoya.com/menu/yoshinoyanodon/gyuteppan-stamina-yakiniku-don/" },
+  { id:278, chainId:"yoshinoya", name:"牛金目鯛の煮付け定食", category:"定食", price:"¥899", img:"https://gourmet.watch.impress.co.jp/img/grw/list/2128/106/00.jpg", startDate:"7/27～", isNew:true, url:"https://www.yoshinoya.com/lp/gyukinmedai_202607/" },
 
   // ── すき家 ───────────────────────────────────────────────
   { id:21, chainId:"sukiya", name:"おんたまビビンバ牛丼",  category:"丼",       price:"〜",     img:"https://news.sukiya.jp/special/bibimbap202606/img/main_pro.png", startDate:"6/9〜",  isNew:true,  url:"https://www.sukiya.jp/news/" },
@@ -158,6 +154,8 @@ const PRODUCTS = [
   { id:219, chainId:"sukiya", name:"ニンニクの芽牛丼",                     category:"丼",       price:"￥690～", img:"https://prcdn.freetls.fastly.net/release_image/97263/1062/97263-1062-335e87ffda8c3bb6f555879b8ca20d21-3900x2600.jpg", startDate:"7/8～", isNew:true, url:"https://www.sukiya.jp/news/" },
         { id:235, chainId:"sukiya", name:"Sukiシェイク ラムネ", category:"スイーツ", price:"¥210～", img:"https://prcdn.freetls.fastly.net/release_image/97263/1064/97263-1064-eabdedfa900cd94c64e66466a4dcf454-1460x2064.jpg", startDate:"7/8～", isNew:true, url:"https://prtimes.jp/main/html/rd/p/000001064.000097263.html" },
         { id:238, chainId:"sukiya", name:"ニンニクの芽牛カルビ焼肉丼", category:"丼", price:"¥990～", img:"https://image.entabe.jp/upload/20260707/images/6-07-07_131802.jpg", startDate:"7/8～", isNew:true, url:"https://www.sukiya.jp/news/" },
+  { id:279, chainId:"sukiya", name:"鉄火丼", category:"丼", price:"¥880", img:"https://gourmet.watch.impress.co.jp/img/grw/list/2127/763/00.jpg", startDate:"7/28～", isNew:true, url:"https://gourmet.watch.impress.co.jp/docs/news/2127763.html" },
+  { id:280, chainId:"sukiya", name:"冷やし汁", category:"サイドメニュー", price:"¥240", img:"https://gourmet.watch.impress.co.jp/img/grw/list/2127/156/00.jpg", startDate:"7/28～", isNew:true, url:"https://gourmet.watch.impress.co.jp/docs/news/2127156.html" },
 
   // ── 松屋 ─────────────────────────────────────────────────
   { id:139, chainId:"matsuya", name:"うな丼",                             category:"丼",          price:"¥980",   img:MAT+"don_unadon_hp_s_260623.jpg",              startDate:"6/23〜", isNew:true, url:"https://www.matsuyafoods.co.jp/matsuya/menu/limited/index.html" },
@@ -180,10 +178,6 @@ const PRODUCTS = [
   { id:99,  chainId:"kfc", name:"ちゅる～りぃ（グリーンライム）",   category:"ドリンク",     price:"¥440", img:"https://images.ctfassets.net/jax7ylg56usf/5RHIx2R89GqmjZSbvHdJTY/7ff77344f9830697e10da1d527ce81ec/032259.png", startDate:"〜", isNew:true, url:"https://www.kfc.co.jp/menu/campaign/I-000032259-007-prod" },
   { id:100, chainId:"kfc", name:"ケンタの鶏竜田バーガー",             category:"バーガー",     price:"¥540", img:"https://kfc-web.imagewave.pictures/tnNHZGnfZgxio6diJAyoRk", startDate:"〜", isNew:false, url:"https://www.kfc.co.jp/menu/limited" },
   { id:101, chainId:"kfc", name:"ケンタの鶏竜田バーガー香味ネギソース",category:"バーガー",    price:"¥590", img:"https://kfc-web.imagewave.pictures/Exh9SmxnRSkzgUWLmevDr6", startDate:"〜", isNew:false, url:"https://www.kfc.co.jp/menu/limited" },
-  { id:183, chainId:"kfc", name:"チキン南蛮フィレバーガー",            category:"バーガー",     price:"¥590", img:"https://kfc-web.imagewave.pictures/zQotjn74wqJsmxbN7rGcBL",  startDate:"7/8〜", isNew:true, url:"https://www.kfc.co.jp/menu/limited" },
-  { id:184, chainId:"kfc", name:"柑橘 鶏竜田バーガー",                 category:"バーガー",     price:"¥640", img:"https://kfc-web.imagewave.pictures/znycjpgqJVywJEfqWLw5sZ",  startDate:"7/8〜", isNew:true, url:"https://www.kfc.co.jp/menu/limited" },
-  { id:221, chainId:"kfc", name:"レッドホットチキン",                      category:"チキン",   price:"￥340",   img:"https://kfc-web.imagewave.pictures/vSwRWziAymMe4SrZqoLrBB", startDate:"7/8～", isNew:true, url:"https://japan.kfc.co.jp/news_release/8159" },
-  { id:222, chainId:"kfc", name:"グリーンホットウィング",                  category:"チキン",   price:"￥280",   img:"https://kfc-web.imagewave.pictures/kHPANsxeVy9FvpPbfJcHdg", startDate:"7/8～", isNew:true, url:"https://japan.kfc.co.jp/news_release/8159" },
         { id:236, chainId:"kfc", name:"柑橘 鶏竜田バーガー", category:"バーガー", price:"¥640", img:"https://kfc-web.imagewave.pictures/znycjpgqJVywJEfqWLw5sZ", startDate:"7/8～", isNew:true, url:"https://japan.kfc.co.jp/news_release/8158" },
         { id:237, chainId:"kfc", name:"チキン南蛮フィレバーガー", category:"バーガー", price:"¥590", img:"https://kfc-web.imagewave.pictures/zQotjn74wqJsmxbN7rGcBL", startDate:"7/8～", isNew:true, url:"https://japan.kfc.co.jp/news_release/8158" },
         { id:246, chainId:"kfc", name:"レッドホットチキン", category:"チキン", price:"¥340", img:"https://kfc-web.imagewave.pictures/B23CVnKAUftSJ5PnFC4QCH", startDate:"7/8～", isNew:true, url:"https://japan.kfc.co.jp/news_release/8159" },
@@ -373,6 +367,11 @@ const PRODUCTS = [
   { id:232, chainId:"komeda", name:"ご褒美レアチーズ",                       category:"スイーツ", price:"￥530～", img:"https://www.atpress.ne.jp/releases/610204/LL_img_610204_2.jpg", startDate:"7/7～", isNew:true, url:"https://www.atpress.ne.jp/news/610204" },
   { id:233, chainId:"komeda", name:"氷点下ショコラ",                         category:"スイーツ", price:"￥530～", img:"https://www.atpress.ne.jp/releases/610204/LL_img_610204_3.jpg", startDate:"7/7～", isNew:true, url:"https://www.atpress.ne.jp/news/610204" },
   { id:234, chainId:"komeda", name:"紅茶日和",                               category:"スイーツ", price:"￥530～", img:"https://www.atpress.ne.jp/releases/610204/LL_img_610204_4.jpg", startDate:"7/7～", isNew:true, url:"https://www.atpress.ne.jp/news/610204" },
+  { id:281, chainId:"komeda", name:"ロコモコバーガー", category:"バーガー", price:"¥850", img:"https://www.atpress.ne.jp/releases/616988/LL_img_616988_2.jpg", startDate:"7/30～", isNew:true, url:"https://www.atpress.ne.jp/news/616988" },
+  { id:282, chainId:"komeda", name:"アボカドエビカツパン", category:"フード", price:"¥1140", img:"https://www.atpress.ne.jp/releases/616988/LL_img_616988_3.jpg", startDate:"7/30～", isNew:true, url:"https://www.atpress.ne.jp/news/616988" },
+  { id:283, chainId:"komeda", name:"トロピカルフルーツ クリームソーダ", category:"ドリンク", price:"¥640", img:"https://www.atpress.ne.jp/releases/616988/LL_img_616988_4.jpg", startDate:"7/30～", isNew:true, url:"https://www.atpress.ne.jp/news/616988" },
+  { id:284, chainId:"komeda", name:"トロピカルフルーツ アイスティー", category:"ドリンク", price:"¥590", img:"https://www.atpress.ne.jp/releases/616988/LL_img_616988_5.jpg", startDate:"7/30～", isNew:true, url:"https://www.atpress.ne.jp/news/616988" },
+  { id:285, chainId:"komeda", name:"アサイーミックス氷", category:"かき氷", price:"¥890", img:"https://www.atpress.ne.jp/releases/616988/LL_img_616988_6.jpg", startDate:"7/30～", isNew:true, url:"https://www.atpress.ne.jp/news/616988" },
 ];
 
 const CATEGORY_FILTERS = [
@@ -828,7 +827,7 @@ function App() {
 
           <div style=${{padding:"16px", textAlign:"center"}}>
             <div style=${{fontSize:12, color:"#CBD5E0"}}>
-              各チェーン公式サイトより取得 • データ取得: 2026年7月31日
+              各チェーン公式サイトより取得 • データ取得: 2026年8月1日
             </div>
           </div>
           <div style=${{position:"fixed", bottom:20, left:"50%", transform:"translateX(-50%)", zIndex:100}}>
