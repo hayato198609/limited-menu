@@ -390,6 +390,16 @@ const PRODUCTS = [
 { id:301, chainId:"matsuya", name:"牛カルビホルモン丼", category:"丼", price:"¥990", img:"https://gourmet.watch.impress.co.jp/img/grw/docs/2130/982/02_l.jpg", startDate:"8/11～", isNew:true, url:"https://gourmet.watch.impress.co.jp/docs/news/2130982.html" },
 { id:302, chainId:"matsuya", name:"松屋の牛焼肉丼", category:"丼", price:"¥630～", img:"https://gourmet.watch.impress.co.jp/img/grw/docs/2130/982/03_l.jpg", startDate:"8/11～", isNew:true, url:"https://gourmet.watch.impress.co.jp/docs/news/2130982.html" },
 { id:303, chainId:"tullys", name:"チョコアフォガート シェイクール", category:"ドリンク", price:"¥710", img:"https://gourmet.watch.impress.co.jp/img/grw/list/2132/227/01.jpg", startDate:"8/12～", isNew:true, url:"https://gourmet.watch.impress.co.jp/docs/news/2132227.html" },
+  { id:304, chainId:"sej", name:"爽やかレモンもこ", category:"スイーツ", price:"¥216", img:"https://tokubai-news-photo-production.tokubai.co.jp/c/f=jpg,u=0,w=1400/7614/6751/f10e/9857/0eee/b72c/0840/a274/645f18dc6224fb93.jpg", startDate:"8/11～", isNew:true, url:"https://tokubai.co.jp/news/articles/6628" },
+  { id:305, chainId:"sej", name:"まぜまぜスイーツ マンゴー&ヨーグルト", category:"スイーツ", price:"¥430", img:"https://tokubai-news-photo-production.tokubai.co.jp/c/f=jpg,u=0,w=1400/e6e8/3f86/cf69/f0f4/2ac6/d094/5366/da30/ea94b8c4e1d241d5.jpg", startDate:"8/11～", isNew:true, url:"https://tokubai.co.jp/news/articles/6628" },
+  { id:306, chainId:"lawson", name:"ご褒美スティックケーキ パリっとふわとろショコラ", category:"スイーツ", price:"¥387", img:"https://tokubai-news-photo-production.tokubai.co.jp/c/f=jpg,u=0,w=1400/ba4a/cd6f/a396/e497/d795/95c2/a4ed/467d/07396ac87910e18a.jpg", startDate:"8/11～", isNew:true, url:"https://tokubai.co.jp/news/articles/4200" },
+  { id:307, chainId:"lawson", name:"カカオ香るショコラクレープ", category:"スイーツ", price:"¥346", img:"https://tokubai-news-photo-production.tokubai.co.jp/c/f=jpg,u=0,w=1400/d271/4e46/4845/c024/a405/2264/6481/274b/72cff097ca103c8e.jpg", startDate:"8/11～", isNew:true, url:"https://tokubai.co.jp/news/articles/4200" },
+  { id:308, chainId:"lawson", name:"バニラムースをのせたコーヒーゼリー", category:"スイーツ", price:"¥324", img:"https://tokubai-news-photo-production.tokubai.co.jp/c/f=jpg,u=0,w=1400/578c/299a/c001/f038/b059/d675/e555/cca4/36a34a5dd8d4da88.jpg", startDate:"8/11～", isNew:true, url:"https://tokubai.co.jp/news/articles/4200" },
+  { id:309, chainId:"lawson", name:"とろけるわらび餅", category:"スイーツ", price:"¥205", img:"https://tokubai-news-photo-production.tokubai.co.jp/c/f=jpg,u=0,w=1400/27ef/bb71/20d5/1a80/4cc7/7dcc/ffbd/7457/4d2463f68b1f2429.jpg", startDate:"8/11～", isNew:true, url:"https://tokubai.co.jp/news/articles/4200" },
+  { id:310, chainId:"familymart", name:"天使のショコラチーズケーキ", category:"スイーツ", price:"¥270", img:"https://tokubai-news-photo-production.tokubai.co.jp/c/f=jpg,u=0,w=1400/d55c/5b38/a709/6e46/7b40/8eff/ae59/b919/c6381cf3260f230e.jpg", startDate:"8/11～", isNew:true, url:"https://tokubai.co.jp/news/articles/4255" },
+  { id:311, chainId:"familymart", name:"冷やして食べるしっとり食感のキャラメルバウム", category:"スイーツ", price:"¥218", img:"https://tokubai-news-photo-production.tokubai.co.jp/c/f=jpg,u=0,w=1400/6494/ba84/5526/4454/1b72/7577/1eac/4b30/bdb2c9b01a626e39.jpg", startDate:"8/11～", isNew:true, url:"https://tokubai.co.jp/news/articles/4255" },
+  { id:312, chainId:"familymart", name:"大きな牛乳寒天（みかん入り）", category:"スイーツ", price:"¥558", img:"https://tokubai-news-photo-production.tokubai.co.jp/c/f=jpg,u=0,w=1400/c7e6/be4b/3961/8444/2913/fd14/5825/74a3/62a64930fd7711ca.jpg", startDate:"8/11～", isNew:true, url:"https://tokubai.co.jp/news/articles/4255" },
+  { id:313, chainId:"familymart", name:"まるごと蜜柑大福", category:"スイーツ", price:"¥290", img:"https://tokubai-news-photo-production.tokubai.co.jp/c/f=jpg,u=0,w=1400/34b9/74f9/05ec/a1bd/5bc5/56a1/8d2b/4537/9568ace5ae24e25e.jpg", startDate:"8/11～", isNew:true, url:"https://tokubai.co.jp/news/articles/4255" },
 ];
 
 const CATEGORY_FILTERS = [
@@ -845,7 +855,7 @@ function App() {
 
           <div style=${{padding:"16px", textAlign:"center"}}>
             <div style=${{fontSize:12, color:"#CBD5E0"}}>
-              各チェーン公式サイトより取得 • データ取得: 2026年8月16日
+              各チェーン公式サイトより取得 • データ取得: 2026年8月18日
             </div>
           </div>
           <div style=${{position:"fixed", bottom:20, left:"50%", transform:"translateX(-50%)", zIndex:100}}>
